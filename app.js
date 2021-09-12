@@ -30,7 +30,7 @@ app.use('/jwt', jwtRoutes)
 app.use('/list', listRoutes)
 sequelize.sync();
 
-app.listen(8080, () => {
+app.listen(process.env.SERVER_PORT, () => {
     console.log(`Listening on port ${process.env.SERVER_PORT}`)
 })
 

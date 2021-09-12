@@ -6,8 +6,9 @@
     "host": "app-dfa8747c-984a-42d2-b8fc-ba6508ceeae1-do-user-9833426-0.b.db.ondigitalocean.com",
     "dialect": "postgres",
     "port": "25060",
-    "ssl": {
-      "rejectUnauthorized": false
+    "ssl": { 
+      "require": "true",
+      "rejectUnauthorized": "false"
     }
   },
   "test": {

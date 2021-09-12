@@ -1,0 +1,76 @@
+.toDoList {
+  width: 35vw;
+  height: auto;
+  box-shadow: 0px 0px 41px 4px rgba(96, 96, 150, 0.77);
+  -webkit-box-shadow: 0px 0px 41px 4px rgba(116, 116, 209, 0.77);
+  -moz-box-shadow: 0px 0px 41px 4px rgba(148, 148, 201, 0.77);
+  background-color:rgba(247, 247, 253, 0.77);
+  border-radius: 10%;
+}
+ul {
+  text-align: -webkit-center;
+  padding: 0;
+  margin: 0;
+}
+p {
+  margin: 0;
+}
+.addDiv {
+    margin-left: 3.7vw;
+    width: 80%;
+}
+.toDoElement {
+  width: 80%;
+  margin: 0.8vw 0.5vw 0.8vw 0.5vw;
+  list-style: none;
+  box-shadow: 7px 8px 29px 5px rgba(28, 110, 164, 0.16);
+  -webkit-box-shadow: 7px 8px 29px 5px rgba(28, 110, 164, 0.16);
+  -moz-box-shadow: 7px 8px 29px 5px rgba(28, 110, 164, 0.16);
+  padding: 0.5vw;
+  border: 3px solid rgba(28, 110, 164, 0.16);
+  border-radius: 40px 40px 40px 40px;
+}
+.toDoElement:last-child {
+  margin-bottom: 1.5vw;
+}
+.checkboxElement {
+  width: 1.4vw;
+  height: 1.4vw;
+  border-radius: 50px !important;
+}
+
+.finished {
+  opacity: 0.4;
+  filter: alpha(opacity=40);
+}
+
+.deleteElement {
+  position: absolute;
+  margin-left: -4.9vw;
+  margin-top: -3.3vw !important;
+  border-radius: 30px;
+  width: 10vw;
+  opacity: 0.8;
+  color: red;
+  font-weight: 700;
+  background-color: rgba(255, 0, 0, 0.6);
+}
+.deleteElementVis {
+  display: none;
+}
+
+
+
+.listCreate {
+    display:flex;
+    width: 50%;
+    margin:0 auto;
+    margin-top:3vw;
+    cursor: pointer;
+}.listDisplay {
+    display:none;
+    cursor: pointer;
+}
+.createList {
+    cursor:pointer;
+}

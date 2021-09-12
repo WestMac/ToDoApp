@@ -11,7 +11,7 @@ const db = {};
 
 let sequelize;
 if (config.use_env_variable) {
-  sequelize = new Sequelize(process.env[config.use_env_variable], config);
+  sequelize = new Sequelize('postgresql://db:show-password@app-dfa8747c-984a-42d2-b8fc-ba6508ceeae1-do-user-9833426-0.b.db.ondigitalocean.com:25060/db?sslmode=require');
 } else {
   sequelize = new Sequelize(
     'postgresql://db:show-password@app-dfa8747c-984a-42d2-b8fc-ba6508ceeae1-do-user-9833426-0.b.db.ondigitalocean.com:25060/db?sslmode=require');

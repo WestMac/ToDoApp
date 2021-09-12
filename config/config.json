@@ -7,7 +7,7 @@
     "dialect": "postgres",
     "port": "25060",
     "ssl": { 
-      "require": true,
+      "require": true
     }
   },
   "test": {

@@ -32,6 +32,8 @@
         </li>
       </ul>
     </div>
+
+
     <form action="/list/addList" method="POST">
       <div class="input-group mb-3 listCreate listDisplay justify-content-center">
         <label for="list" class="mb-3 fs-3">List name</label>
@@ -50,6 +52,8 @@
       </div>
     </form>
 
+
+
     <% data.forEach(e => {%>
     <div class="d-flex flex-row flex-wrap align-content-center justify-content-center mt-5" name='<%= e.listId %>'>
       <div class="toDoList m-5">
@@ -60,6 +64,7 @@
             Add
           </button>
         </form>
+        <input type="text" name="addEditors" class="form-control inputAdd inputEditor" placeholder="Add editor">
         </div>
         <h1 class="text-center"><%= e.name %><h1>
        

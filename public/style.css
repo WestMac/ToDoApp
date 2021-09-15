@@ -81,6 +81,11 @@ p {
 .hidden {
   display:none;
 }
+.inputEditor {
+  width: 10.1vw!important;
+  height: 1.914vw!important;
+  margin-left:6.5vw!important;
+}
 
 @media (max-width:720px) {
   .toDoList {

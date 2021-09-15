@@ -25,7 +25,7 @@ module.exports = {
         allowNull: false,
         type: Sequelize.DATE
       }
-    });
+    }).then(() => await queryInterface.addIndex('Users', ['username']));
   },
   down: async (queryInterface, Sequelize) => {
     await queryInterface.dropTable('Users');

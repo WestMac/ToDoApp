@@ -25,10 +25,10 @@
           <a class="nav-link" href="/login">Login</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Register</a>
+          <a class="nav-link" href="/register">Register</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Logout</a>
+          <a class="nav-link" href="/logout" tabindex="-1">Logout</a>
         </li>
       </ul>
     </div>
@@ -74,8 +74,9 @@
               <input class="checkboxElement me-3 form-check-input me-1" type="checkbox" />
             </div>
             <p><%= item.text %> </p>
-          </li>
-          <form action="/list/<%= item.id %>/deleteToDo?_method=DELETE" method="POST">
+            </li>
+            <textarea name="<%= item.id %>" cols="20" rows="2" class='hidden toDoElementEdit'></textarea>
+          <form action="/list/toDo/<%= item.id %>?_method=DELETE" method="POST">
           <button type="submit" class="deleteElement deleteElementVis" id="deleteToDo">Delete</button>
         </form>
           <% }) %>

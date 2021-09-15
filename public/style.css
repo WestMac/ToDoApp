@@ -74,3 +74,16 @@ p {
 .createList {
     cursor:pointer;
 }
+
+.visible {
+  display:none;
+}
+.hidden {
+  display:none;
+}
+
+@media (max-width:720px) {
+  .toDoList {
+    width: 100vw;
+  }
+}

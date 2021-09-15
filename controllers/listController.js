@@ -65,7 +65,7 @@ module.exports.addToList = async (req,res,next) => {
 }
 
 module.exports.removeFromList = async(req,res,next) => {
- 
+
     let { toDoId } = req.params;
     const token = await req.cookies.token;
     const decode = jwt.verify(token, process.env.JWT_SECRET);
@@ -74,5 +74,20 @@ module.exports.removeFromList = async(req,res,next) => {
     if(ownership){
      await toDoItem.destroy({ where: {id:toDoId}})
     }
-    next();
+    return res.redirect('/list')
+}
+
+module.exports.updateToDo = async(req,res,next) => {
+  let { toDoId } = req.params;
+  let { text } = req.body;
+  const token = await req.cookies.token;
+  const decode = jwt.verify(token, process.env.JWT_SECRET);
+  let list = await toDoItem.findOne({where: { id: toDoId } })
+  let ownership = await listUserPermission.findOne({where : {UserId: decode.id, toDoListId: list.toDoListId } })
+   if(ownership){
+    await toDoItem.update(
+      { text : text },
+      { where: { id : toDoId } }
+      )
+   }
 }

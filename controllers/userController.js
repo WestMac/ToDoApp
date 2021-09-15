@@ -21,14 +21,14 @@ module.exports.createJwtToken = async (req,res,next) => {
 
 module.exports.checkJwtToken = async (req,res,next) => {
     const token = await req.cookies.token
-    if(!token) return res.status(403).redirect('login')
+    if(!token) return res.status(403).render('login')
     try {
-        if(token === 'null' || !token) return res.status(400).send('Unauthorized')
+        if(token === 'null' || !token) return res.status(400).render('login')
         const decode = jwt.verify(token, process.env.JWT_SECRET);
-        if (!decode) return res.status(401).send('Unauthorized request')
+        if (!decode) return res.status(401).render('login')
         return next();
     }catch(err) {
-        return res.status(400).redirect('login')
+        return res.status(400).render('login')
     }
 }
 

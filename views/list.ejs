@@ -64,8 +64,23 @@
             Add
           </button>
         </form>
-        <input type="text" name="addEditors" class="form-control inputAdd inputEditor" placeholder="Add editor">
-        </div>
+        <div class="autocomplete" style="width:300px; display:flex;">
+        <input type="text" id="addEditors" name="addEditors" class="form-control inputAdd inputEditor" placeholder="Add/Remove editor">
+      </div>
+      </div>
+      <% if(e.isAuthor) {%>
+      <div class='author'>
+        <p><strong>Author:</strong> <%= e.username %></p>
+      </div>
+      <% } %>
+
+    
+     <div class='editors'>
+      <strong>Editors:</strong> 
+      <% e.editors.forEach(edit => { %>
+        <br><span><%= edit %></span>
+         <% }) %>
+    </div>
         <h1 class="text-center"><%= e.name %><h1>
        
         <form action="/list/<%= e.listId %>?_method=DELETE" method="POST">
@@ -78,7 +93,7 @@
             <div class="divCheckbox align-self-center">
               <input class="checkboxElement me-3 form-check-input me-1" type="checkbox" />
             </div>
-            <p><%= item.text %> </p>
+            <p class='toDoText'><%= item.text %> </p>
             </li>
             <textarea name="<%= item.id %>" cols="20" rows="2" class='hidden toDoElementEdit'></textarea>
           <form action="/list/toDo/<%= item.id %>?_method=DELETE" method="POST">

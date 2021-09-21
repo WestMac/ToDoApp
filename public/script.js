@@ -1,3 +1,6 @@
+
+
+
 document.querySelectorAll(".checkboxElement").forEach(checkbox => {
   checkbox.addEventListener("change", event => {
     event.path[2].classList.toggle("finished");
@@ -14,22 +17,30 @@ if (document.querySelector(".btnAdd")) {
 
 let lastClicked;
 
-document.querySelectorAll(".toDoElement").forEach(el => {
-  el.addEventListener("click", event => {
-    if (event.path[0] == el.childNodes[1].children[0]) {
-      return;
-    }
-    el.classList.add("hidden");
-    el.nextElementSibling.value = el.innerText;
-    el.nextElementSibling.classList.remove("hidden");
-    el.nextElementSibling.focus();
-    el.classList.remove("d-flex");
-    lastClicked = el;
-  });
+// document.querySelector('body > div.d-flex.flex-row.flex-wrap.align-content-center.justify-content-center.mt-5 > div > h1:nth-child(5) > ul > li:nth-child(1)')
+//   .addEventListener('click', event => {
+//     alert('elo')
+//   })
+
+
+
+document.querySelectorAll(".toDoElement").forEach(function(el) {
+    el.addEventListener('click', function(event) { 
+      // if (event.path[0] == el.childNodes[1].children[0]) {
+      //   return;
+      // }
+      el.classList.add("hidden");
+      el.nextElementSibling.value = el.innerText;
+      el.nextElementSibling.classList.remove("hidden");
+      el.nextElementSibling.focus();
+      el.classList.remove("d-flex");
+      lastClicked = el;
+    })
 });
 
 document.querySelectorAll(".toDoElementEdit").forEach(textarea => {
   textarea.addEventListener("focusout", async event => {
+    alert('focusout')
     textarea.classList.add("hidden");
     lastClicked.lastElementChild.innerText = textarea.value;
     lastClicked.classList.remove("hidden");
@@ -49,10 +60,121 @@ document.querySelectorAll(".toDoElementEdit").forEach(textarea => {
       .catch(err => {
         console.log(err);
       });
-  });
+  },false);
 });
 
-// document.querySelector(".inputEditor").addEventListener("keyup", event => {});
+let typingTimer;
+let finishedTypingInterval = 500;
+let myInput = document.querySelectorAll(".inputEditor");
+let currentFocus;
+myInput.forEach(search => {
+  search.addEventListener("keypress", event => {
+    if (event.keyCode == 40 || event.keyCode == 38 || event.keyCode == 27) {
+      return;
+    }
+    clearTimeout(typingTimer);
+    let listId = event.path[4].getAttribute("name");
+    let username = event.path[0].value;
+    if (username) {
+      typingTimer = setTimeout(function () {
+        fetch(`http://localhost/list/${listId}/${username}`, {
+          method: "GET",
+          credentials: "same-origin",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        })
+          .then(response => response.json())
+          .then(data => {
+            let box,
+              item = username;
+            closeAllLists();
+            currentFocus = -1;
+            box = document.createElement("DIV");
+            box.setAttribute("id", "autocomplete-list");
+            box.setAttribute("class", "autocomplete-items");
+            event.path[1].appendChild(box);
+            for (let i = 0; i < data.length; i++) {
+              item = document.createElement("DIV");
+              item.innerHTML = "<strong>" + data[i].substr(0, username.length) + "</strong>";
+              item.innerHTML += data[i].substr(username.length);
+              item.innerHTML += "<input type='hidden' value='" + data[i] + "'>";
+              item.addEventListener("click", function (e) {
+                event.path[0].value = e.path[0].innerText;
+                closeAllLists();
+                addEditor(listId, e.path[0].innerText);
+              });
+              box.appendChild(item);
+            }
+          })
+          .catch(err => {
+            console.log(err);
+          });
+      }, finishedTypingInterval);
+    }
+  });
+});
+myInput.forEach(search => {
+  search.addEventListener("keydown", function (e) {
+    var list = document.getElementById("autocomplete-list");
+    if (list) list = list.getElementsByTagName("div");
+    if (e.keyCode == 40) {
+      // keycode 40 arrow down
+      currentFocus++;
+      addActive(list);
+    } else if (e.keyCode == 38) {
+      // keyCode 38 arrow up
+      currentFocus--;
+      addActive(list);
+    } else if (e.keyCode == 13) {
+      let listId = e.path[4].getAttribute("name");
+      let username = e.path[0].value;
+      username = e.path[0].nextElementSibling.children[currentFocus].innerText;
+      closeAllLists(e.target);
+      e.preventDefault();
+      addEditor(listId, username);
+      if (currentFocus > -1) {
+        if (list) list[currentFocus].click();
+      }
+    } else if (e.keyCode == 27) {
+      closeAllLists(e.target);
+    }
+  });
+});
+function addActive(item) {
+  if (!item) return false;
+  removeActive(item);
+  if (currentFocus >= item.length) currentFocus = 0;
+  if (currentFocus < 0) currentFocus = item.length - 1;
+  item[currentFocus].classList.add("autocomplete-active");
+}
+function removeActive(x) {
+  for (let i = 0; i < x.length; i++) {
+    x[i].classList.remove("autocomplete-active");
+  }
+}
+
+function closeAllLists(currentList) {
+  var list = document.getElementsByClassName("autocomplete-items");
+  for (let i = 0; i < list.length; i++) {
+    if (currentList != list[i] && currentList != myInput) {
+      list[i].parentNode.removeChild(list[i]);
+    }
+  }
+}
+function addEditor(listId, username) {
+  fetch(`http://localhost/list/${listId}/${username}`, {
+    method: "POST",
+    credentials: "same-origin",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+}
+
+document.addEventListener("click", function (e) {
+  closeAllLists(e.target);
+});
 
 document.querySelector(".createList").addEventListener("click", event => {
   document.querySelector(".listCreate").classList.toggle("listDisplay");

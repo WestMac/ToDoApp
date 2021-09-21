@@ -1,22 +1,38 @@
 const jwt = require('jsonwebtoken');
-const { User,listUserPermission, toDoList } = require('../models')
+const { User, refreshToken } = require('../models')
 const bcrypt = require("bcrypt");
-
+const crypto = require('crypto')
 module.exports.createJwtToken = async (req,res,next) => {
-    const { username, email, password } =req.body;
+    const { username, id, password } =req.body;
     try {
         const user = await User.findOne({ where: { username: username } });
         if (!user) throw new Error("User does not exist");
         const valid = await bcrypt.compare(password, user.password);
         if (!valid) throw new Error("Wrong pass or username");
         let token  = user.signToken()
-        res.status(200).cookie('token', token, {httpOnly:true})
-        return next();
+        // let refresh = await refreshToken.create({
+        //   UserId: user.id,
+        //   UserIp: req.headers['x-real-ip'],
+        //   UserBrowser: req.headers['user-agent'],
+        //   revoked: false,
+        //   token: crypto.randomBytes(40).toString('hex'),
+        //   expires: Date.now() +  (1440 * 60 * 1000)
+        // })
+        console.log(token)
+ 
+          res.status(200).cookie('token', token, {httpOnly:false})
+          //  .cookie('refreshToken', refresh.token, {httpOnly:true, sameSite: 'strict'})
+          console.log(res)
+          next();
       } catch (err) {
         return res.send({
           error: `${err.message}`,
         });
       }
+}
+
+module.exports.createRefreshToken = async (req,res,next) => {
+
 }
 
 module.exports.checkJwtToken = async (req,res,next) => {

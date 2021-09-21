@@ -10,6 +10,7 @@ const listRoutes = require('./routes/list')
 const { sequelize } = require('./models')
 const methodOverride = require('method-override');
 
+
 app.use(methodOverride('_method'))
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }))

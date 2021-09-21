@@ -6,6 +6,7 @@ const bcrypt = require("bcrypt");
 const { createJwtToken, createUser } = require("../controllers/userController");
 
 router.get("/login", async (req, res) => {
+
   return res.render("login");
 });
 router.post("/login", createJwtToken, async (req, res) => {

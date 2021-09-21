@@ -4,10 +4,11 @@ const router = express.Router();
 const { toDoList, listUserPermission, toDoItem } = require("../models");
 const jwt = require("jsonwebtoken");
 const { checkJwtToken } = require("../controllers/userController");
-const { createList, findUserLists, addToList, deleteList, removeFromList, updateToDo } = require("../controllers/listController");
+const { createList, findUserLists, addToList, deleteList, removeFromList, updateToDo, findUser, addEditor } = require("../controllers/listController");
 
 router.get("/", checkJwtToken, findUserLists, async (req, res) => {
   let data = req.data;
+  
 //   console.log(data)
   return res.render("list", { data });
 });
@@ -20,11 +21,13 @@ router.route("/:listId")
     .delete(checkJwtToken, deleteList)
     .post(checkJwtToken, addToList)
 
-
-
 router.route("/toDo/:toDoId")
       .delete(checkJwtToken,removeFromList)
       .patch(checkJwtToken, updateToDo)
 
+router.get("/:listId/:username", checkJwtToken, findUser, async (req,res) => {
+})
+router.post("/:listId/:username", checkJwtToken, addEditor, async(req,res) =>{
 
+})
 module.exports = router;

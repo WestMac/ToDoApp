@@ -1,7 +1,7 @@
 'use strict';
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('listUserPermissions', {
+    await queryInterface.createTable('refreshTokens', {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -9,30 +9,34 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       UserId: {
+        allowNull: false,
         type: Sequelize.INTEGER,
-        primaryKey:false,
         references: {
-          model: 'Users',
-          key: 'id'
+          model: 'User',
+          key:'id'
         },
         onUpdate:'cascade',
         onDelete:'cascade',
       },
-      toDoListId: {
-        type: Sequelize.INTEGER,
-        primaryKey:false,
-        references: {
-          model: 'toDoLists',
-          key: 'id',
-        },
-        onUpdate:'cascade',
-        onDelete:'cascade',
+      UserIp: {
+        allowNull: false,
+        type: Sequelize.INTET
       },
-      isAuthor: {
+      UserBrowser: {
+        allowNull: false,
+        type: Sequelize.STRING
+      },
+      revoked: {
+        allowNull: false,
         type: Sequelize.BOOLEAN
       },
-      isEditor: {
-        type: Sequelize.BOOLEAN
+      token: {
+        allowNull: false,
+        type: Sequelize.STRING
+      },
+      expires: {
+        allowNull: false,
+        type: Sequelize.DATE
       },
       createdAt: {
         allowNull: false,
@@ -45,6 +49,6 @@ module.exports = {
     });
   },
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('listUserPermissions');
+    await queryInterface.dropTable('refreshTokens');
   }
 };

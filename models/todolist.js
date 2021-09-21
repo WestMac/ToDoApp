@@ -11,19 +11,19 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      toDoList.belongsTo(models.User, {
-        as: 'toDoList',
-        foreignKey: 'userId'
-      }),
+      toDoList.belongsTo(models.User),
       toDoList.hasMany(models.toDoItem, 
-        {onDelete:'cascade',
+        {
+        as: 'toDoItem',
+        foreignKey: 'toDoListId',
+        onDelete:'cascade',
         onUpdate: 'cascade',
         hooks:true
       })
     }
   };
   toDoList.init({
-    userId: DataTypes.INTEGER,
+    UserId: DataTypes.INTEGER,
     name: DataTypes.STRING
   }, {
     sequelize,

@@ -11,7 +11,7 @@ module.exports = {
       toDoListId: {
         type: Sequelize.INTEGER,
         references: {
-          model: 'toDoList',
+          model: 'toDoLists',
           key:'id'
         },
         onUpdate:'cascade',

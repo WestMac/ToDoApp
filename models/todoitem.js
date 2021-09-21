@@ -11,9 +11,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      toDoItem.belongsTo(models.toDoList, {
-        as: 'toDoItem'
-      })
+      toDoItem.belongsTo(models.toDoList)
     }
   };
   toDoItem.init({

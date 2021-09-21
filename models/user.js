@@ -1,5 +1,6 @@
 'use strict';
 const jwt = require('jsonwebtoken');
+
 require('dotenv').config();
 const {
   Model
@@ -16,11 +17,25 @@ module.exports = (sequelize, DataTypes) => {
         id: this.id,
         username: this.username,
         exp: Math.floor(Date.now() / 1000) + (60 * 5),
-        premium: true
+        premium: true,
+        iss: 'toDoApp'
       }, process.env.JWT_SECRET)
     }
-
     static associate(models) {
+      User.hasMany(models.toDoList, {
+        as: 'toDoList',
+        foreignKey: 'UserId',
+        onDelete:'cascade',
+        onUpdate: 'cascade',
+        hooks:true
+      })
+      User.hasMany(models.refreshToken, {
+        as: 'refreshToken',
+        foreignKey: 'UserId',
+        onDelete: 'cascade',
+        onUpdate: 'cascade',
+        hooks: true
+      })
       // define association here
     }
   };

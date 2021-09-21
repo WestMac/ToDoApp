@@ -8,8 +8,6 @@ const { createList, findUserLists, addToList, deleteList, removeFromList, update
 
 router.get("/", checkJwtToken, findUserLists, async (req, res) => {
   let data = req.data;
-  
-//   console.log(data)
   return res.render("list", { data });
 });
 

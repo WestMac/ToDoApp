@@ -5,7 +5,6 @@ const express = require('express');
 const path = require('path');
 const app = express();
 const userRoutes = require('./routes/users')
-const jwtRoutes = require('./routes/token')
 const listRoutes = require('./routes/list')
 const { sequelize } = require('./models')
 const methodOverride = require('method-override');
@@ -28,7 +27,6 @@ app.use(cookieParser())
 
 
 app.use('/', userRoutes)
-app.use('/jwt', jwtRoutes)
 app.use('/list', listRoutes)
 sequelize.sync();
 

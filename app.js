@@ -30,7 +30,11 @@ app.use('/', userRoutes)
 app.use('/list', listRoutes)
 sequelize.sync();
 
-app.listen(process.env.SERVER_PORT, () => {
-    console.log(`Listening on port ${process.env.SERVER_PORT}`)
+app.use((err, req, res, next) => {
+	const { status = 500 } = err;
+	if (!err.message) err.message = 'Something went wrong ! Oppss'
+	res.status(status)
 })
 
+
+module.exports = app

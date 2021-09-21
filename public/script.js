@@ -40,7 +40,6 @@ document.querySelectorAll(".toDoElement").forEach(function(el) {
 
 document.querySelectorAll(".toDoElementEdit").forEach(textarea => {
   textarea.addEventListener("focusout", async event => {
-    alert('focusout')
     textarea.classList.add("hidden");
     lastClicked.lastElementChild.innerText = textarea.value;
     lastClicked.classList.remove("hidden");

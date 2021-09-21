@@ -12,15 +12,13 @@ module.exports = {
         allowNull: false,
         type: Sequelize.INTEGER,
         references: {
-          model: 'User',
-          key:'id'
-        },
-        onUpdate:'cascade',
-        onDelete:'cascade',
+          model: 'Users',
+          key: 'id'
+        }
       },
       UserIp: {
         allowNull: false,
-        type: Sequelize.INTET
+        type: Sequelize.INET
       },
       UserBrowser: {
         allowNull: false,

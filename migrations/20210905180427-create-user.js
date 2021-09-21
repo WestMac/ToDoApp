@@ -11,14 +11,40 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       username: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        allowNull: false,
+        unique: true,
       },
       email: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        allowNull: false,
+        unique: true,
+        validate: {
+          notEmpty: {
+            args: true,
+            msg: "Cannot be empty"
+          },
+          notNull: {
+            args: true,
+            msg: "Cannot be empty"
+          },
+          isEmail: { 
+            args: true,
+            msg: "elo elo zly imejl"
+          }
+        }
       },
       password: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        allowNull: false,
+        notEmpty: true,
+        validate: {
+          len: { 
+            args: [8,256],
+            msg: "Password has to be at least 8 characters long"
+        },
       },
+    },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

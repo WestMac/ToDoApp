@@ -18,6 +18,7 @@ module.exports = {
         onDelete:'cascade',
       },
       text: {
+        allowNull:false,
         type: Sequelize.STRING
       },
       isCompleted: {

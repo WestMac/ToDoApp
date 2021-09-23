@@ -21,7 +21,7 @@ describe("POST /register", () => {
         test("Should respond with 302", async () => {
             const response = await request(app).post("/register").send({
                 username: 'newUser',
-                password: 'newUser',
+                password: 'newUserrsrs',
                 email: 'newUser@newUser.pl'
             })
             expect(response.statusCode).toBe(302)
@@ -32,7 +32,7 @@ describe("POST /register", () => {
                 password: 'test'
             })
             
-            expect(response.header["set-cookie"][0]).toMatch(/token/)
+            expect(response.header["set-cookie"]).toMatch(/token/)
             expect(response.statusCode).toBe(302)
         })
         test("Should respond with 403", async () => {

@@ -31,6 +31,7 @@ describe("POST /register", () => {
                 username: 'test',
                 password: 'test'
             })
+            // console.log(response)
             expect(response.statusCode).toBe(302)
         })
         test("Should respond with 403", async () => {

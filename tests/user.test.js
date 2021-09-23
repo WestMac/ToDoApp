@@ -25,7 +25,7 @@ describe("POST /register", () => {
                 email: 'newUser@newUser.pl'
             })
             expect(response.statusCode).toBe(302)
-            done();
+       
         })
         test('Should respond with 302', async() => {
             const response = await request(app).post('/login').send({
@@ -34,7 +34,7 @@ describe("POST /register", () => {
             })
             // console.log(response)
             expect(response.statusCode).toBe(302)
-            done();
+            
         })
         test("Should respond with 403", async () => {
             const response = await request(app).post("/register").send({
@@ -43,7 +43,7 @@ describe("POST /register", () => {
                 email: 'newUse1r@newUs1r.pl'
             })
             expect(response.statusCode).toBe(400)
-            done();
+            
         })
         test("Should respond with 403", async () => {
             const response = await request(app).post("/register").send({
@@ -52,7 +52,7 @@ describe("POST /register", () => {
                 email: 'newUse1r@newUser1.pl'
             })
             expect(response.statusCode).toBe(400)
-            done();
+          
         })
         test("Should respond with 403", async () => {
             const response = await request(app).post("/register").send({
@@ -61,7 +61,7 @@ describe("POST /register", () => {
                 email: null
             })
             expect(response.statusCode).toBe(400)
-            done();
+      
         })
         test("Should respond with 403",async () => {
             const response = await request(app).post('/login').send({
@@ -69,7 +69,7 @@ describe("POST /register", () => {
                 password: null,
             })
             expect(response.statusCode).toBe(400)
-            done();
+            
         })
         test("Should respond with 403",async () => {
             const response = await request(app).post('/login').send({
@@ -77,7 +77,7 @@ describe("POST /register", () => {
                 password: null,
             })
             expect(response.statusCode).toBe(400)
-            done();
+         
         })
         test("Should respond with 403",async () => {
             const response = await request(app).post('/login').send({
@@ -85,7 +85,6 @@ describe("POST /register", () => {
                 password: 'testtesttest',
             })
             expect(response.statusCode).toBe(400)
-            done();
         })
     })
 

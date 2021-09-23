@@ -19,16 +19,11 @@ module.exports.createJwtToken = async (req, res, next) => {
     //   token: crypto.randomBytes(40).toString('hex'),
     //   expires: Date.now() +  (1440 * 60 * 1000)
     // })
-    console.log(token);
-
     res.status(200).cookie("token", token, { httpOnly: false });
     //  .cookie('refreshToken', refresh.token, {httpOnly:true, sameSite: 'strict'})
-    console.log(res);
     next();
   } catch (err) {
-    return res.send({
-      error: `${err.message}`,
-    });
+    return res.status(400).render('login');
   }
 };
 
@@ -75,10 +70,12 @@ console.log(username)
         next();
       })
       .catch(SequelizeValidationError, error => {
-        res.sendStatus(400);
+        res.status(400).render('register')
+        next();
       })
       .catch(err => {
-        res.sendStatus(400);
+        res.status(400).render('register')
+        next();
       });
   });
 };

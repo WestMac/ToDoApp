@@ -26,15 +26,11 @@ app.use(function(req, res, next) {
 app.use(cookieParser())
 
 
+
 app.use('/', userRoutes)
 app.use('/list', listRoutes)
 sequelize.sync();
 
-app.use((err, req, res, next) => {
-	const { status = 500 } = err;
-	if (!err.message) err.message = 'Something went wrong ! Oppss'
-	res.status(status)
-})
 
 
 module.exports = app

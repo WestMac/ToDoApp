@@ -31,7 +31,8 @@ describe("POST /register", () => {
                 username: 'test',
                 password: 'test'
             })
-            
+            console.log(response.headers)
+            console.log(response.header)
             expect(response.header["set-cookie"]).toMatch(/token/)
             expect(response.statusCode).toBe(302)
         })

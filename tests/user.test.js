@@ -1,8 +1,6 @@
 const request = require('supertest')
 const { sequelize } = require('../models')
 const app = require('../app.js')
-const bcrypt = require('bcrypt')
-
 // beforeEach((done) => {
 
 // })
@@ -10,12 +8,6 @@ const bcrypt = require('bcrypt')
 
 describe("POST /register", () => {
     
-
-    beforeAll(async () => {
-        await sequelize.sync({ force: true })
-      })
-
-
     describe("given a username and a password", () => {
         
         test("Should respond with 302", async () => {
@@ -32,7 +24,6 @@ describe("POST /register", () => {
                 username: 'test',
                 password: 'test'
             })
-            // console.log(response)
             expect(response.statusCode).toBe(302)
             
         })
@@ -91,9 +82,4 @@ describe("POST /register", () => {
     describe("when the username or password is missing", () => {
 
     })
-
-    // afterAll(async () => {
-    //     await sequelize.close()
-    //   })
-
 })

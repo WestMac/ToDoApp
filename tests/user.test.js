@@ -23,7 +23,9 @@ describe("POST /register", () => {
             const response = await request(app).post('/login').send({
                 username: 'test',
                 password: 'test'
-            })
+            }).then(resp => { 
+                console.log(resp)
+            }
             expect(response.statusCode).toBe(302)
             
         })
@@ -82,4 +84,9 @@ describe("POST /register", () => {
     describe("when the username or password is missing", () => {
 
     })
+
+    afterAll(async () => {
+        await sequelize.close()
+      })
+
 })

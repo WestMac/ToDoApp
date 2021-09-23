@@ -25,7 +25,7 @@ describe("POST /register", () => {
                 password: 'test'
             }).then(resp => { 
                 console.log(resp)
-            }
+            };
             expect(response.statusCode).toBe(302)
             
         })

@@ -1,8 +1,6 @@
 require("dotenv").config();
 const express = require("express");
 const router = express.Router();
-const { toDoList, listUserPermission, toDoItem } = require("../models");
-const jwt = require("jsonwebtoken");
 const { checkJwtToken } = require("../controllers/userController");
 const { createList, findUserLists, addToList, deleteList, removeFromList, updateToDo, findUser, addEditor } = require("../controllers/listController");
 

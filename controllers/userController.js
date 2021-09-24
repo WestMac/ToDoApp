@@ -21,7 +21,9 @@ module.exports.createJwtToken = async (req, res, next) => {
     // })
     res.status(200).cookie("token", token, { httpOnly: true, secure: true });
     //  .cookie('refreshToken', refresh.token, {httpOnly:true, sameSite: 'strict'})
+    next();
   } catch (err) {
+    console.log(req.body)
     console.log(err)
     return res.status(400).render('login');
   }

@@ -13,17 +13,16 @@ jobs:
   build:
 
     runs-on: self-hosted
-    
+    env:
+      JWT_SECRET: ${{ secrets.JWT_SECRET }}
+      JWT_LIFE: ${{ secrets.JWT_LIFE }}
+      SALT: ${{ secrets.SALT }}    
     strategy:
       matrix:
         node-version: [12.x, 14.x, 16.x]
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
-        env:
-          JWT_SECRET: ${{ secrets.JWT_SECRET }}
-          JWT_LIFE: ${{ secrets.JWT_LIFE }}
-          SALT: ${{ secrets.SALT }}
     - uses: actions/checkout@v2
     - name: Create env file
       run: |

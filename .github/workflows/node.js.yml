@@ -20,10 +20,14 @@ jobs:
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
+        env:
+          JWT_SECRET: ${{ secrets.JWT_SECRET }}
+          JWT_LIFE: ${{ secrets.JWT_LIFE }}
+          SALT: ${{ secrets.SALT }}
     - uses: actions/checkout@v2
     - name: Create env file
       run: |
-       Set-Content -Path .env -value "JWT_SECRET=${{ secrets.JWT_SECRET }}",JWT_LIFE=${{ secrets.JWT_LIFE }},SALT=${{ secrets.SALT }}
+       Set-Content -Path .env -value "JWT_SECRET=$env:JWT_SECRET",JWT_LIFE=$env:JWT_LIFE,SALT=$env:SALT
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v2
       with:

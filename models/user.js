@@ -48,7 +48,10 @@ module.exports = (sequelize, DataTypes) => {
         msg: "Already taken"
       },
       validate: {
-        is: /^\w{3,}$/,
+        is:{
+          args: /^\w{3,}$/,
+          msg: "Has to be at least 3 character long"
+        },
         notEmpty:{
           args:true,
           msg: "Cannot be empty"

@@ -6,7 +6,7 @@ const app = require('../app.js')
 // })
 
 
-describe("POST /register", () => {
+describe("POST login/register", () => {
     
     describe("given a username and a password", () => {
         
@@ -24,7 +24,7 @@ describe("POST /register", () => {
                 username: 'test',
                 password: 'test'
             })
-            console.log(response.statusCode)
+            console.log(response)
             expect(response.statusCode).toBe(302)
             
         })

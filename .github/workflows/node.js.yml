@@ -14,9 +14,9 @@ jobs:
 
     runs-on: self-hosted
     env:
-      JWT_SECRET: ${{ secrets.JWT_SECRET }}
-      JWT_LIFE: ${{ secrets.JWT_LIFE }}
-      SALT: ${{ secrets.SALT }}    
+      JWT_SECRET: ${{ .env.JWT_SECRET }}
+      JWT_LIFE: ${{ .env.JWT_LIFE }}
+      SALT: ${{ .env.SALT }}    
     strategy:
       matrix:
         node-version: [12.x, 14.x, 16.x]

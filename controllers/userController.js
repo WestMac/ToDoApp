@@ -8,7 +8,7 @@ module.exports.createJwtToken = async (req, res, next) => {
   const { username, password } = req.body;
   try {
     const user = await User.findOne({ where: { username: username } });
-    if (!user) throw new Error("User does not exist");
+    if (!user) throw new Error("Wrong pass or username");
     const valid = await bcrypt.compare(password, user.password);
     if (!valid) throw new Error("Wrong pass or username");
     let token = user.signToken();
@@ -24,9 +24,9 @@ module.exports.createJwtToken = async (req, res, next) => {
     // ^ deleted secure
     //  .cookie('refreshToken', refresh.token, {httpOnly:true, sameSite: 'strict'})
     next();
-  } catch (err) {
-    console.log(err)
-    return res.status(400).render('login');
+  } catch (error) {
+    error = error.message
+    return res.status(400).render('login', { error });
   }
 };
 
@@ -62,6 +62,8 @@ module.exports.checkJwtPremium = async (req, res, next) => {
 
 module.exports.createUser = async (req, res, next) => {
   const { username, email, password } = req.body;
+  try {
+    if(password.length < 8) throw new Error('Has to contain at least 8 characters')
   bcrypt.hash(password, Number(process.env.SALT), async function (err, hash) {
     await User.create({
       username: username,
@@ -71,13 +73,18 @@ module.exports.createUser = async (req, res, next) => {
         res.redirect("/");
         next();
       })
-      .catch(SequelizeValidationError, error => {
-        res.status(400).render('register')
-        next();
-      })
       .catch(err => {
-        res.status(400).render('register')
+        const errorObject = {}
+        err.errors.map(er => {
+          errorObject[er.path] = er.message
+        })
+        res.status(400).render('register', { errorObject })
         next();
       });
   });
+} catch (error) {
+  const errorObject = {'password':error.message}
+  res.status(400).render('register',  { errorObject })
+  next();
+}
 };

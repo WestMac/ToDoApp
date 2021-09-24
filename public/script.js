@@ -178,3 +178,17 @@ document.addEventListener("click", function (e) {
 document.querySelector(".createList").addEventListener("click", event => {
   document.querySelector(".listCreate").classList.toggle("listDisplay");
 });
+
+
+
+
+
+
+
+
+
+////////////////////////// FUNCTIONS ?/////////////////////////////////
+
+function capitalizeFirstLetter(string) {
+  return string[0].toUpperCase() + string.slice(1);
+}

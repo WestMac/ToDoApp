@@ -7,7 +7,16 @@
     <title>Document</title>
   </head>
   <body>
+    
       <h1>Register</h1>
+      <% if(locals.errorObject) { %>
+        <p>
+        <% for(let [error,message] of Object.entries(locals.errorObject)) { %>
+        <span style ="text-transform:capitalize"><%= error %>: </span><span> <%= message %> </span> <br>
+      
+        <% } %>  
+        </p>
+      <% } %>
     <form action="/register" method="POST">
         <div>
       <label for="username">Username</label>

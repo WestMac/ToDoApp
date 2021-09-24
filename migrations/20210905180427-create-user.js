@@ -22,15 +22,15 @@ module.exports = {
         validate: {
           notEmpty: {
             args: true,
-            msg: "Cannot be empty"
+            msg: "Wrong email"
           },
           notNull: {
             args: true,
-            msg: "Cannot be empty"
+            msg: "Wrong email"
           },
           isEmail: { 
             args: true,
-            msg: "elo elo zly imejl"
+            msg: "Wrong email"
           }
         }
       },

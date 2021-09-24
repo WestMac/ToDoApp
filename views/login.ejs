@@ -8,6 +8,9 @@
   </head>
   <body>
       <h1>Login</h1>
+      <% if(locals.error) { %>
+        <p><%= locals.error %></p>
+        <% } %>
     <form action='/login' method='POST' class="form" id="loginForm">
         <div>
       <label for="username">Username</label>

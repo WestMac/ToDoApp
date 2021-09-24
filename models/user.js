@@ -43,29 +43,33 @@ module.exports = (sequelize, DataTypes) => {
     username: {
       type: DataTypes.STRING,
       allowNull: false,
-      unique: true,
+      unique: {
+        args:true,
+        msg: "Already taken"
+      },
       validate: {
         is: /^\w{3,}$/,
-        notEmpty:true,
-        notNull:true
+        notEmpty:{
+          args:true,
+          msg: "Cannot be empty"
+        },
+        notNull: {
+          args:true,
+          msg: "Cannot be empty"
+        }
       }
     },
     email: {
       type: DataTypes.STRING,
       allowNull: false,
-      unique: true,
+      unique: {
+        args: true,
+        msg: "Already taken"
+      },
       validate: {
-        notEmpty: {
-          args: true,
-          msg: "Email Cannot be empty"
-        },
-        notNull: {
-          args: true,
-          msg: "Email Cannot be empty"
-        },
         isEmail: { 
           args: true,
-          msg: "elo elo zly imejl"
+          msg: "Please enter valid email"
         }
       }
     },
@@ -73,12 +77,6 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false,
       notEmpty: true,
-      validate: {
-        len: { 
-          args: [8,256],
-          msg: "Password has to be at least 8 characters long"
-      },
-    },
   },
   }, {
     sequelize,

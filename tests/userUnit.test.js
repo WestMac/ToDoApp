@@ -3,6 +3,23 @@ const { sequelize } = require('../models')
 const app = require('../app.js')
 
 
+describe("Get Register/Login routes", () => {
+
+    test("Get login route / ", async() => {
+        const response = await request(app).get('/')
+
+        expect(response.status).toBe(200)
+        expect(response.headers['content-type']).toContain('text/html')
+    })
+
+    test("Get register route / ", async() => {
+        const response = await request(app).get('/register')
+        
+        expect(response.status).toBe(200)
+        expect(response.headers['content-type']).toContain('text/html')
+    })
+})
+
 
 describe("POST register", () => {
     
@@ -17,6 +34,15 @@ describe("POST register", () => {
                 email: 'newUser@newUser.pl'
             })
             expect(response.statusCode).toBe(302)
+        })
+
+        test("Register new account,302", async () => {
+            const response = await request(app).post("/register").send({
+                username: 'newUser',
+                password: 'newUserrsrs',
+                email: 'newUser@newUser.pl'
+            })
+            expect(response.statusCode).toBe(400)
         })
     })
        

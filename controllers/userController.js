@@ -1,4 +1,3 @@
-
 const jwt = require("jsonwebtoken");
 const { User, refreshToken, Sequelize } = require("../models");
 const bcrypt = require("bcrypt");

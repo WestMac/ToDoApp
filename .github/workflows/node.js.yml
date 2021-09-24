@@ -9,11 +9,6 @@ on:
   pull_request:
     branches: [ main ]
 
-env:
-  JWT_SECRET: ${{ secrets.JWT_SECRET }}
-  JWT_LIFE: ${{ secrets.JWT_LIFE }}
-  SALT: ${{ secrets.SALT }}
-
 jobs:
   build:
 
@@ -26,6 +21,10 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
+      env:
+        JWT_SECRET: ${{ secrets.JWT_SECRET }}
+        JWT_LIFE: ${{ secrets.JWT_LIFE }}
+        SALT: ${{ secrets.SALT }}
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v2
       with:

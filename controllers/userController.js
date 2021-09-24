@@ -1,7 +1,9 @@
+require('dotenv').config();
 const jwt = require("jsonwebtoken");
 const { User, refreshToken, Sequelize } = require("../models");
 const bcrypt = require("bcrypt");
 const { SequelizeValidationError } = Sequelize;
+
 
 module.exports.createJwtToken = async (req, res, next) => {
   const { username, password } = req.body;

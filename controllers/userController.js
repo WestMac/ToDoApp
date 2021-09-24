@@ -4,7 +4,7 @@ const bcrypt = require("bcrypt");
 const { SequelizeValidationError } = Sequelize;
 
 module.exports.createJwtToken = async (req, res, next) => {
-  const { username, id, password } = req.body;
+  const { username, password } = req.body;
   try {
     const user = await User.findOne({ where: { username: username } });
     if (!user) throw new Error("User does not exist");
@@ -21,8 +21,8 @@ module.exports.createJwtToken = async (req, res, next) => {
     // })
     res.status(200).cookie("token", token, { httpOnly: true, secure: true });
     //  .cookie('refreshToken', refresh.token, {httpOnly:true, sameSite: 'strict'})
-    next();
   } catch (err) {
+    console.log(err)
     return res.status(400).render('login');
   }
 };

@@ -6,7 +6,7 @@ const jwt = require("jsonwebtoken");
 const { checkJwtToken } = require("../controllers/userController");
 const { createList, findUserLists, addToList, deleteList, removeFromList, updateToDo, findUser, addEditor } = require("../controllers/listController");
 
-router.get("/", findUserLists, async (req, res) => {
+router.get("/", checkJwtToken, findUserLists, async (req, res) => {
   let data = req.data;
   return res.render("list", { data });
 });

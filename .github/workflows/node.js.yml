@@ -13,6 +13,7 @@ jobs:
   build:
 
     runs-on: self-hosted
+    environment: .env
     env:
       JWT_SECRET: ${{ secrets.JWT_SECRET }}
       JWT_LIFE: ${{ secrets.JWT_LIFE }}

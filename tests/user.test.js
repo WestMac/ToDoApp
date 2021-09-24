@@ -1,6 +1,8 @@
 const request = require('supertest')
 const { sequelize } = require('../models')
 const app = require('../app.js')
+require('dotenv').config();
+
 // beforeEach((done) => {
 
 // })

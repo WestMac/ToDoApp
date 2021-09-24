@@ -58,31 +58,28 @@ describe("POST login/register", () => {
         test("Should respond with 403",async () => {
             const response = await request(app).post('/login').send({
                 username: 'test',
-                password: null,
+                password: 'test',
             })
             expect(response.statusCode).toBe(400)
             
         })
         test("Should respond with 403",async () => {
             const response = await request(app).post('/login').send({
-                username: undefined,
-                password: null,
+                username: 'test',
+                password: 'test',
             })
             expect(response.statusCode).toBe(400)
          
         })
         test("Should respond with 403",async () => {
             const response = await request(app).post('/login').send({
-                username: 'elo',
-                password: 'testtesttest',
+                username: 'test',
+                password: 'test',
             })
             expect(response.statusCode).toBe(400)
         })
     })
 
-    describe("when the username or password is missing", () => {
-
-    })
 
     afterAll(async () => {
         await sequelize.close()

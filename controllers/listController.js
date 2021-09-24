@@ -143,7 +143,7 @@ module.exports.addEditor = async (req, res, next) => {
   let permission = await listUserPermission.findOne({
     where: { UserId: user.id, toDoListId: listId },
   });
-  console.log(listId,username)
+
   if (permission) {
     await permission.update({ isEditor: !permission.isEditor });
   } else {

@@ -24,8 +24,6 @@ module.exports.createJwtToken = async (req, res, next) => {
     //  .cookie('refreshToken', refresh.token, {httpOnly:true, sameSite: 'strict'})
     next();
   } catch (err) {
-    console.log(req.body)
-    console.log( process.env.JWT_SECRET )
     console.log(err)
     return res.status(400).render('login');
   }
@@ -63,7 +61,6 @@ module.exports.checkJwtPremium = async (req, res, next) => {
 
 module.exports.createUser = async (req, res, next) => {
   const { username, email, password } = req.body;
-console.log(username)
   bcrypt.hash(password, Number(process.env.SALT), async function (err, hash) {
     await User.create({
       username: username,

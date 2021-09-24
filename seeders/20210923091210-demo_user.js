@@ -21,7 +21,7 @@ module.exports = {
 
 
 function hashPassword(password) {
-  bcrypt.hash(password, Number(process.env.SALT), async function (err, hash) {
+  let hash = bcrypt.hash(password, Number(process.env.SALT), async function (err, hash) {
     return hash
   })
   return hash

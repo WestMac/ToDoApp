@@ -15,7 +15,7 @@ describe("POST login/register", () => {
                 username: 'test',
                 password: 'test'
             })
-            console.log(response)
+            // console.log(response)
             expect(response.statusCode).toBe(302)
             
         })

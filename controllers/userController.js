@@ -26,6 +26,7 @@ module.exports.createJwtToken = async (req, res, next) => {
     next();
   } catch (err) {
     console.log(req.body)
+    console.log( process.env.JWT_SECRET )
     console.log(err)
     return res.status(400).render('login');
   }

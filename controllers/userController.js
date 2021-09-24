@@ -6,7 +6,6 @@ const { SequelizeValidationError } = Sequelize;
 
 module.exports.createJwtToken = async (req, res, next) => {
   const { username, password } = req.body;
-  console.log(process.env.JWT_SECRET)
   try {
     const user = await User.findOne({ where: { username: username } });
     if (!user) throw new Error("User does not exist");

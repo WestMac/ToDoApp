@@ -21,10 +21,13 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-      env:
+    - name: Create env file
+      run: |
+        cat << EOF >> .env
         JWT_SECRET=${{ secrets.JWT_SECRET }}
         JWT_LIFE=${{ secrets.JWT_LIFE }}
         SALT=${{ secrets.SALT }}
+        EOF
 
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v2

@@ -1,4 +1,4 @@
-require('dotenv').config();
+
 const jwt = require("jsonwebtoken");
 const { listUserPermission, toDoList, toDoItem, User } = require("../models");
 const { Op } = require("sequelize");

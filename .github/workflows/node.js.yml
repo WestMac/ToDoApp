@@ -14,9 +14,10 @@ jobs:
 
     runs-on: self-hosted
     env:
-      JWT_SECRET: ${{ .env.JWT_SECRET }}
-      JWT_LIFE: ${{ .env.JWT_LIFE }}
-      SALT: ${{ .env.SALT }}    
+      JWT_SECRET: ${{ secrets.JWT_SECRET }}
+      JWT_LIFE: ${{ secrets.JWT_LIFE }}
+      SALT: ${{ secrets.SALT }}    
+      TEST: ${{ secrets.TEST_SECRET }}
     strategy:
       matrix:
         node-version: [12.x, 14.x, 16.x]
@@ -26,7 +27,7 @@ jobs:
     - uses: actions/checkout@v2
     - name: Create env file
       run: |
-       Set-Content -Path .env -value "JWT_SECRET=$env:JWT_SECRET",JWT_LIFE=$env:JWT_LIFE,SALT=$env:SALT
+       Set-Content -Path .env -value JWT_SECRET=$env:JWT_SECRET,JWT_LIFE=$env:JWT_LIFE,SALT=$env:SALT,TEST=$env:TEST
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v2
       with:

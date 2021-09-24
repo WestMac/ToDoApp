@@ -29,7 +29,7 @@ jobs:
     - run: npm ci
     - run: npm run build --if-present
     - name: Create env file
-          run: |
+          run:
           touch .env
           echo JWT_SECRET=et4UFbs4Hk1lRrhwdkBW12xmcBzRpulnJf1+7VIwMzey+ddY1d86DEYR4DDlLtICB7rftT3YK5nY/P3fQ8IKGPEtfuuYB5zGzVYpD5walxvI+KDPzFzbbYUotgxnSIZJcZ6l63KBzr84RdD64hRJYljSxyTn80MalqXXLrzA4VA0BoL8e65vhG/i/G+AKS55w7RPlfOyjbY/tSglgJBTsuvXNtwJUYT94wg2CoHZv8J4Z8bfuwWY81WTcJW9NGhHQga80VIjwqUihPvFhfu+X4T3I42T1ndVy3Xw3XucWzT6dZElZJZFVasR1rfxkt6JYO3sDXYl0fLSz6fvz7neKA==et4UFbs4Hk1lRrhwdkBW12xmcBzRpulnJf1+7VIwMzey+ddY1d86DEYR4DDlLtICB7rftT3YK5nY/P3fQ8IKGPEtfuuYB5zGzVYpD5walxvI+KDPzFzbbYUotgxnSIZJcZ6l63KBzr84RdD64hRJYljSxyTn80MalqXXLrzA4VA0BoL8e65vhG/i/G+AKS55w7RPlfOyjbY/tSglgJBTsuvXNtwJUYT94wg2CoHZv8J4Z8bfuwWY81WTcJW9NGhHQga80VIjwqUihPvFhfu+X4T3I42T1ndVy3Xw3XucWzT6dZElZJZFVasR1rfxkt6JYO3sDXYl0fLSz6fvz7neKA== >> .env
           echo SALT = 10 >> .env

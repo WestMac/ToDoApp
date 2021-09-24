@@ -20,7 +20,8 @@ module.exports.createJwtToken = async (req, res, next) => {
     //   token: crypto.randomBytes(40).toString('hex'),
     //   expires: Date.now() +  (1440 * 60 * 1000)
     // })
-    res.status(200).cookie("token", token, { httpOnly: true, secure: true });
+    res.status(200).cookie("token", token, { httpOnly: true});
+    // ^ deleted secure
     //  .cookie('refreshToken', refresh.token, {httpOnly:true, sameSite: 'strict'})
     next();
   } catch (err) {

@@ -60,6 +60,30 @@ describe('List actions', () => {
         expect(response.status).toBe(403)
     })
 
+    test('Edit list item', async() => {
+        const response = await request(app)
+            .patch('/list/toDo/5')
+            .set('Cookie', token)
+            .send({
+                text: 'EditedToDo'
+            })
+            expect(response.status).toBe(302)
+    })
+    test('Delete list item', async() => {
+        const response = await request(app)
+            .delete('/list/toDo/5')
+            .set('Cookie', token)
+
+            expect(response.status).toBe(302)
+    })
+    test('Delete list', async () => {
+        const response = await request(app)
+            .delete('/list/4')
+            .set('Cookie', token)
+
+            expect(response.status).toBe(302)
+        })
+
 })
 
 

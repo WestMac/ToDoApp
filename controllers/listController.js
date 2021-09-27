@@ -123,6 +123,7 @@ module.exports.updateToDo = async (req, res, next) => {
   });
   if (ownership) {
     await toDoItem.update({ text: text }, { where: { id: toDoId } });
+    res.status(302).send('Succes')
   }
 };
 

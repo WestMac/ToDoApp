@@ -13,7 +13,9 @@ module.exports.createList = async (req, res, next) => {
     isAuthor: true,
     isEditor: true,
   });
-  return res.redirect("/list");
+  res.body = toDo.id
+  req.body = toDo.id
+  next();
 };
 
 module.exports.deleteList = async (req, res, next) => {
@@ -73,13 +75,28 @@ if(data[i].isAutor || data[i].isEditor) {
 module.exports.addToList = async (req, res, next) => {
   let { listId } = req.params;
   let { toDo } = req.body;
+try {
+  const token = await req.cookies.token;
+  const decode = jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
+    if (err) {
+      return res.redirect("login");
+    }
+    return decoded;
+  });
+  let ownership = await listUserPermission.findOne({where: { toDoListId: listId, UserId: decode.id} })
+  if(!ownership.isAuthor || !ownership.isEditor) { throw new Error('Permission denied') }
   await toDoItem.create({
     toDoListId: listId,
     text: toDo,
     isCompleted: false,
   });
+} catch (err) {
+  console.log(err)
+  return res.redirect(403,'/list')
+}
   return res.redirect("/list");
 };
+
 
 module.exports.removeFromList = async (req, res, next) => {
   let { toDoId } = req.params;

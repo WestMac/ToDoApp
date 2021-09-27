@@ -29,24 +29,40 @@ describe('Get All User list', () => {
     })
 })
 
-describe('Post new list', () => {
+describe('List actions', () => {
     test('Post new list', async () => {
-
-        let formData = new FormData();
-        formData.append('name', 'NewTestedList')
-        
         const response = await request(app)
             .post('/list/addList')
             .set('Cookie', token)
             .send({
                 name: 'NewTestCreateList'
             })
+            expect(response.status).toBe(302)
+        })
 
-
-    
+    test('Post new list item', async () => {
+        const response = await request(app)
+            .post(`/list/4`)
+            .set('Cookie', token)
+            .send({
+                toDo: 'NewTestListItem'
+            })
         expect(response.status).toBe(302)
     })
+
+    test('Post new list item/ should failed', async () => {
+        const response = await request(app)
+            .post(`/list/6`)
+            .set('Cookie', token)
+            .send({
+                toDo: 'NewTestListItem'
+            })
+        expect(response.status).toBe(403)
+    })
+
 })
+
+
 
 afterAll(async () => {
     await sequelize.close()

@@ -11,6 +11,7 @@ router.get("/", checkJwtToken, findUserLists, async (req, res) => {
 
 router.post("/addList", checkJwtToken, createList, async (req, res) => {
   
+  res.redirect('/list')
 });
 
 router.route("/:listId")

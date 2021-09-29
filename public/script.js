@@ -1,10 +1,28 @@
+(function(e, d, w) {
+  if(!e.composedPath) {
+    e.composedPath = function() {
+      if (this.path) {
+        return this.path;
+      } 
+    var target = this.target;
 
+    this.path = [];
+    while (target.parentNode !== null) {
+      this.path.push(target);
+      target = target.parentNode;
+    }
+    this.path.push(d, w);
+    return this.path;
+    }
+  }
+})(Event.prototype, document, window);
 
 
 document.querySelectorAll(".checkboxElement").forEach(checkbox => {
   checkbox.addEventListener("change", event => {
-    event.path[2].classList.toggle("finished");
-    event.path[2].nextElementSibling.nextElementSibling.lastElementChild.classList.toggle(
+    var path = event.path || (event.composedPath && event.composedPath());
+    path[2].classList.toggle("finished");
+    path[2].nextElementSibling.nextElementSibling.lastElementChild.classList.toggle(
       "deleteElementVis"
     );
     // event.path[2].nextElementSibling.nextElementSibling.lastElementChild.classList.toggle('deleteElementVis')
@@ -47,7 +65,6 @@ document.querySelectorAll(".toDoElementEdit").forEach(textarea => {
 
     await fetch(`http://localhost/list/toDo/${textarea.name}`, {
       method: "PATCH",
-      credentials: "same-origin",
       headers: {
         "Content-Type": "application/json",
       },
@@ -67,18 +84,19 @@ let finishedTypingInterval = 500;
 let myInput = document.querySelectorAll(".inputEditor");
 let currentFocus;
 myInput.forEach(search => {
-  search.addEventListener("keypress", event => {
+  
+  search.addEventListener("input", event => {
+    var path = event.path || (event.composedPath && event.composedPath());
     if (event.keyCode == 40 || event.keyCode == 38 || event.keyCode == 27) {
       return;
     }
     clearTimeout(typingTimer);
-    let listId = event.path[4].getAttribute("name");
-    let username = event.path[0].value;
+    let listId = path[4].getAttribute("name");
+    let username = path[0].value;
     if (username) {
       typingTimer = setTimeout(function () {
         fetch(`http://localhost/list/${listId}/${username}`, {
           method: "GET",
-          credentials: "same-origin",
           headers: {
             "Content-Type": "application/json",
           },
@@ -92,16 +110,17 @@ myInput.forEach(search => {
             box = document.createElement("DIV");
             box.setAttribute("id", "autocomplete-list");
             box.setAttribute("class", "autocomplete-items");
-            event.path[1].appendChild(box);
+            path[1].appendChild(box);
             for (let i = 0; i < data.length; i++) {
               item = document.createElement("DIV");
               item.innerHTML = "<strong>" + data[i].substr(0, username.length) + "</strong>";
               item.innerHTML += data[i].substr(username.length);
               item.innerHTML += "<input type='hidden' value='" + data[i] + "'>";
               item.addEventListener("click", function (e) {
-                event.path[0].value = e.path[0].innerText;
+                var textPath = e.path || (e.composedPath && e.composedPath());
+                path[0].value = textPath[0].innerText;
                 closeAllLists();
-                addEditor(listId, e.path[0].innerText);
+                addEditor(listId, textPath[0].innerText);
               });
               box.appendChild(item);
             }
@@ -113,33 +132,36 @@ myInput.forEach(search => {
     }
   });
 });
+
 myInput.forEach(search => {
-  search.addEventListener("keydown", function (e) {
+  search.addEventListener("keydown", function (event) {
+    var path = event.path || (event.composedPath && event.composedPath());
     var list = document.getElementById("autocomplete-list");
     if (list) list = list.getElementsByTagName("div");
-    if (e.keyCode == 40) {
+    if (event.keyCode == 40) {
       // keycode 40 arrow down
       currentFocus++;
       addActive(list);
-    } else if (e.keyCode == 38) {
+    } else if (event.keyCode == 38) {
       // keyCode 38 arrow up
       currentFocus--;
       addActive(list);
-    } else if (e.keyCode == 13) {
-      let listId = e.path[4].getAttribute("name");
-      let username = e.path[0].value;
-      username = e.path[0].nextElementSibling.children[currentFocus].innerText;
-      closeAllLists(e.target);
-      e.preventDefault();
+    } else if (event.keyCode == 13) {
+      let listId = path[4].getAttribute("name");
+      let username = path[0].value;
+      username = path[0].nextElementSibling.children[currentFocus].innerText;
+      closeAllLists(event.target);
+      event.preventDefault();
       addEditor(listId, username);
       if (currentFocus > -1) {
         if (list) list[currentFocus].click();
       }
-    } else if (e.keyCode == 27) {
-      closeAllLists(e.target);
+    } else if (event.keyCode == 27) {
+      closeAllLists(event.target);
     }
   });
 });
+
 function addActive(item) {
   if (!item) return false;
   removeActive(item);
@@ -147,6 +169,7 @@ function addActive(item) {
   if (currentFocus < 0) currentFocus = item.length - 1;
   item[currentFocus].classList.add("autocomplete-active");
 }
+
 function removeActive(x) {
   for (let i = 0; i < x.length; i++) {
     x[i].classList.remove("autocomplete-active");
@@ -161,6 +184,7 @@ function closeAllLists(currentList) {
     }
   }
 }
+
 function addEditor(listId, username) {
   fetch(`http://localhost/list/${listId}/${username}`, {
     method: "POST",

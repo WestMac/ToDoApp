@@ -3,9 +3,9 @@
 .toDoList {
   width: 35vw;
   height: auto;
-  box-shadow: 0px 0px 41px 4px rgba(96, 96, 150, 0.77);
-  -webkit-box-shadow: 0px 0px 41px 4px rgba(116, 116, 209, 0.77);
-  -moz-box-shadow: 0px 0px 41px 4px rgba(148, 148, 201, 0.77);
+  box-shadow: 0 30px 60px 0 rgba(0,0,0,0.3);
+  -webkit-box-shadow: 0 30px 60px 0 rgba(0,0,0,0.3);
+  -moz-box-shadow: 0 30px 60px 0 rgba(0,0,0,0.3);
   background-color:rgba(247, 247, 253, 0.77);
   border-radius: 10%;
 }

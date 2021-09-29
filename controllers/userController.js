@@ -1,5 +1,5 @@
 const jwt = require("jsonwebtoken");
-const { User, refreshToken, Sequelize } = require("../models");
+const { User, Sequelize } = require("../models");
 const bcrypt = require("bcrypt");
 const { SequelizeValidationError } = Sequelize;
 
@@ -25,8 +25,8 @@ module.exports.createJwtToken = async (req, res, next) => {
     //  .cookie('refreshToken', refresh.token, {httpOnly:true, sameSite: 'strict'})
     next();
   } catch (error) {
-    error = error.message
-    return res.status(400).render('login', { error });
+    errorObject = error.message
+    return res.status(400).render('login', { errorObject });
   }
 };
 

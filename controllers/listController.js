@@ -84,7 +84,8 @@ try {
     return decoded;
   });
   let ownership = await listUserPermission.findOne({where: { toDoListId: listId, UserId: decode.id} })
-  if(!ownership.isAuthor || !ownership.isEditor) { throw new Error('Permission denied') }
+  console.log(ownership)
+  if(!ownership.isAuthor && !ownership.isEditor) { throw new Error('Permission denied') }
   await toDoItem.create({
     toDoListId: listId,
     text: toDo,
@@ -96,7 +97,6 @@ try {
 }
   return res.redirect("/list");
 };
-
 
 module.exports.removeFromList = async (req, res, next) => {
   let { toDoId } = req.params;
@@ -113,6 +113,7 @@ module.exports.removeFromList = async (req, res, next) => {
 };
 
 module.exports.updateToDo = async (req, res, next) => {
+  console.log(req)
   let { toDoId } = req.params;
   let { text } = req.body;
   const token = await req.cookies.token;

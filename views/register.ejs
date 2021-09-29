@@ -7,7 +7,8 @@
       integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We"
       crossorigin="anonymous"
     />
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="/style.css" />
+    <link rel="stylesheet" href="/userStyle.css" />
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -25,32 +26,31 @@
     </div>
 
 
-      <h1>Register</h1>
-      <% if(locals.errorObject) { %>
-        <p>
-        <% for(let [error,message] of Object.entries(locals.errorObject)) { %>
-        <span style ="text-transform:capitalize"><%= error %>: </span><span> <%= message %> </span> <br>
-      
-        <% } %>  
-        </p>
-      <% } %>
-    <form action="/register" method="POST">
-        <div>
-      <label for="username">Username</label>
-      <input type="text" name="username" id="username">
+
+
+    <div class="wrapper fadeInDown">
+      <div id="formContent">
+        <h1 class="fadeInDown">Register</h1>
+        <% if(locals.errorObject) { %>
+          <p class="alert alert-danger" role="alert">
+          <% for(let [error,message] of Object.entries(locals.errorObject)) { %>
+          <span style ="text-transform:capitalize"><%= error %>: </span><span> <%= message %> </span> <br>
+        
+          <% } %>  
+          </p>
+        <% } %>
+        <form action="/register" method="POST">
+          <input type="text" id="username" class="fadeIn second" name="username" placeholder="username">
+          <input type="password" id="password" class="fadeIn third" name="password" placeholder="password">
+          <input type="email" id="email" class="fadeIn third" name="email" placeholder="email">
+          <input type="submit" class="fadeIn fourth" value="Log In">
+        </form>
+    
+       
+        
+    
+      </div>
     </div>
-    <div>
-        <label for="password">Password</label>
-        <input type="password" name="password" id="password">
-
-      </div>
-      <div>
-        <label for="email">email</label>
-        <input type="email" name="email" id="email">
-
-      </div>
-      <button>Register</button>
-    </form>
   </body>
   <script src="./script.js"></script>
 </html>

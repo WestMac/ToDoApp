@@ -6,8 +6,10 @@ const path = require("path");
 const app = express();
 const userRoutes = require("./routes/users");
 const listRoutes = require("./routes/list");
+const passwordRoutes = require("./routes/passwordReset")
 const { sequelize } = require("./models");
 const methodOverride = require("method-override");
+const cors = require("cors")
 
 
 app.use(methodOverride("_method"));
@@ -25,9 +27,10 @@ app.use(function (req, res, next) {
 });
 app.use(cookieParser());
 
-
 app.use("/", userRoutes);
+app.use("/reset", passwordRoutes)
 app.use("/list", listRoutes);
+
 
 // app.use((err, req, res, next) => {
 // 	const { status = 500 } = err;

@@ -10,13 +10,7 @@ module.exports = (sequelize, DataTypes) => {
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
-    createToken(id) {
-      return jwt.sign({
-        id: this.id,
-        exp: Math.floor(Date.now() / 1000) + (60 * 5),
-        iss: 'toDoApp'
-      }, process.env.JWT_RESET)
-    }
+    
     
     static associate(models) {
       resetToken.belongsTo(models.User)

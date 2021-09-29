@@ -29,8 +29,8 @@ module.exports = (sequelize, DataTypes) => {
         onUpdate: 'cascade',
         hooks:true
       })
-      User.hasMany(models.refreshToken, {
-        as: 'refreshToken',
+      User.hasOne(models.resetToken, {
+        as: 'resetToken',
         foreignKey: 'UserId',
         onDelete: 'cascade',
         onUpdate: 'cascade',

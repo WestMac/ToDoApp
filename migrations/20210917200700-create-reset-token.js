@@ -1,7 +1,7 @@
 'use strict';
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('refreshTokens', {
+    await queryInterface.createTable('resetTokens', {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -15,18 +15,6 @@ module.exports = {
           model: 'Users',
           key: 'id'
         }
-      },
-      UserIp: {
-        allowNull: false,
-        type: Sequelize.INET
-      },
-      UserBrowser: {
-        allowNull: false,
-        type: Sequelize.STRING
-      },
-      revoked: {
-        allowNull: false,
-        type: Sequelize.BOOLEAN
       },
       token: {
         allowNull: false,
@@ -47,6 +35,6 @@ module.exports = {
     });
   },
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('refreshTokens');
+    await queryInterface.dropTable('resetTokens');
   }
 };

@@ -17,15 +17,23 @@
   }
 })(Event.prototype, document, window);
 
+///////////////////////////////EVENET LISTENING FOR CLICK ON SVG TO POP UP EDIOTRS////////////////////////////////
+document.querySelector(".editorBox").addEventListener('click', event =>{
+  event = event.target
+  
+  if(event.nextElementSibling.classList.contains('fadeInRight')){
+    event.nextElementSibling.classList.toggle('fadeInLeft')
+  } else {
+    event.nextElementSibling.classList.toggle('fadeInRight')
+  }
+
+})
 
 document.querySelectorAll(".checkboxElement").forEach(checkbox => {
   checkbox.addEventListener("change", event => {
     var path = event.path || (event.composedPath && event.composedPath());
     path[2].classList.toggle("finished");
-    path[2].nextElementSibling.nextElementSibling.lastElementChild.classList.toggle(
-      "deleteElementVis"
-    );
-    // event.path[2].nextElementSibling.nextElementSibling.lastElementChild.classList.toggle('deleteElementVis')
+    checkbox.nextSibling.preventDefault();
   });
 });
 
@@ -35,25 +43,16 @@ if (document.querySelector(".btnAdd")) {
 
 let lastClicked;
 
-// document.querySelector('body > div.d-flex.flex-row.flex-wrap.align-content-center.justify-content-center.mt-5 > div > h1:nth-child(5) > ul > li:nth-child(1)')
-//   .addEventListener('click', event => {
-//     alert('elo')
-//   })
-
-
-
-document.querySelectorAll(".toDoElement").forEach(function(el) {
-    el.addEventListener('click', function(event) { 
-      // if (event.path[0] == el.childNodes[1].children[0]) {
-      //   return;
-      // }
-      el.classList.add("hidden");
-      el.nextElementSibling.value = el.innerText;
-      el.nextElementSibling.classList.remove("hidden");
-      el.nextElementSibling.focus();
-      el.classList.remove("d-flex");
-      lastClicked = el;
-    })
+/////////////////////////// EVENT LISTENING FOR CLICK ON TEXT ELEMENT OF ToDo ////////////////////////////
+document.querySelectorAll(".toDoText").forEach(function(el) {
+  el.addEventListener('click', function(event) { 
+    el.parentElement.classList.add("hidden");
+    el.parentElement.nextElementSibling.value = el.innerText;
+    el.parentElement.nextElementSibling.classList.remove("hidden");
+    el.parentElement.nextElementSibling.focus();
+    el.parentElement.classList.remove("d-flex");
+    lastClicked = el.parentElement;
+  })
 });
 
 document.querySelectorAll(".toDoElementEdit").forEach(textarea => {
@@ -63,7 +62,7 @@ document.querySelectorAll(".toDoElementEdit").forEach(textarea => {
     lastClicked.classList.remove("hidden");
     lastClicked.classList.add("d-flex");
 
-    await fetch(`http://localhost/list/toDo/${textarea.name}`, {
+    await fetch(`http://192.168.1.125/list/toDo/${textarea.name}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
@@ -95,7 +94,7 @@ myInput.forEach(search => {
     let username = path[0].value;
     if (username) {
       typingTimer = setTimeout(function () {
-        fetch(`http://localhost/list/${listId}/${username}`, {
+        fetch(`http://192.168.1.125/list/${listId}/${username}`, {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
@@ -126,7 +125,7 @@ myInput.forEach(search => {
             }
           })
           .catch(err => {
-            console.log(err);
+            location.reload();
           });
       }, finishedTypingInterval);
     }
@@ -147,12 +146,9 @@ myInput.forEach(search => {
       currentFocus--;
       addActive(list);
     } else if (event.keyCode == 13) {
-      let listId = path[4].getAttribute("name");
-      let username = path[0].value;
       username = path[0].nextElementSibling.children[currentFocus].innerText;
       closeAllLists(event.target);
       event.preventDefault();
-      addEditor(listId, username);
       if (currentFocus > -1) {
         if (list) list[currentFocus].click();
       }
@@ -186,13 +182,35 @@ function closeAllLists(currentList) {
 }
 
 function addEditor(listId, username) {
-  fetch(`http://localhost/list/${listId}/${username}`, {
+  fetch(`http://192.168.1.125/list/${listId}/${username}`, {
     method: "POST",
     credentials: "same-origin",
     headers: {
       "Content-Type": "application/json",
     },
-  });
+  })
+  .then(response => response.json()).then(response => { 
+  document.querySelectorAll('.editorCircle').forEach( (e) => {
+    if(e.getAttribute('title') === response){
+      e.remove()
+      snackbar('success', `Editor <strong>${response}</strong> has been removed`, 2000);
+      response = false
+      return;
+    } 
+  })
+  if(response) {
+  let editor = document.createElement('span')
+  editor.setAttribute('title', response)
+  editor.classList.add('editorCircle')
+  let firstLetters = response.match(/\b(\w)/g) 
+  let acronym = firstLetters.join('') 
+  editor.innerText = acronym
+  document.querySelector('.editors').append(editor)
+  snackbar('success', `New editor <strong>${response}</strong> has been added`, 2000);
+}
+}).catch( err => {
+    snackbar('warning', `Failed to add editor`, 3000);
+})
 }
 
 document.addEventListener("click", function (e) {
@@ -215,4 +233,34 @@ document.querySelector(".createList").addEventListener("click", event => {
 
 function capitalizeFirstLetter(string) {
   return string[0].toUpperCase() + string.slice(1);
+}
+
+
+//////////////////////// FLASH MESSAGE ////////////////////////////////
+
+function snackbar(type, msg, time){
+  const box = document.createElement('P');
+  box.classList.add('snackbar');
+  box.innerHTML = `${msg} <span> &times </span>`;
+
+  if(type === 'error'){
+      box.classList.add('error');
+  }
+  else if(type ==='success'){
+      box.classList.add('success');
+  }
+  else if(type ==='warning'){
+      box.classList.add('warning');
+  }
+  else if(type ==='info'){
+      box.classList.add('info');
+  }
+
+  snackbarContainer.appendChild(box);
+  box.classList.add('fadeout');
+
+  setTimeout(()=>{
+          snackbarContainer.removeChild(box)
+  }, time)
+
 }

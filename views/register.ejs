@@ -39,11 +39,20 @@
           <% } %>  
           </p>
         <% } %>
-        <form action="/register" method="POST">
-          <input type="text" id="username" class="fadeIn second" name="username" placeholder="username">
-          <input type="password" id="password" class="fadeIn third" name="password" placeholder="password">
-          <input type="email" id="email" class="fadeIn third" name="email" placeholder="email">
-          <input type="submit" class="fadeIn fourth" value="Log In">
+        <form action="/register" method="POST" class="form needs-validation" novalidate>
+          <input type="text" id="username" class="fadeIn second form-control" name="username" placeholder="username" minlength="3" required>
+        <div class="invalid-feedback">
+            Minimum is 3 characters
+          </div>
+          <input type="password" id="password" class="fadeIn third form-control" name="password" placeholder="password" minlength="8" required>
+        <div class="invalid-feedback">
+            Password has to be at least 8 characters long
+          </div>
+          <input type="email" id="email" class="fadeIn third form-control" name="email" placeholder="email" required>
+            <div class="invalid-feedback">
+            Email has to be in valid format xxx@xx.xx
+          </div>
+          <input type="submit" class="fadeIn fourth" value="Register">
         </form>
     
        
@@ -52,5 +61,5 @@
       </div>
     </div>
   </body>
-  <script src="./script.js"></script>
+  <script src="/../../login.js"></script>
 </html>

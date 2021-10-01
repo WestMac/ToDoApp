@@ -40,8 +40,9 @@ module.exports.checkJwtToken = async (req, res, next) => {
     const decode = jwt.verify(token, process.env.JWT_SECRET);
     if (!decode) return res.status(401).render("login");
     return next();
-  } catch (err) {
-    return res.status(400).render("login");
+  } catch (error) {
+    let errorObject = "Session expired"
+    return res.status(400).render("login", {errorObject});
   }
 };
 

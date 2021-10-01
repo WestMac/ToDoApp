@@ -46,7 +46,6 @@ module.exports.resetPassword = async (req,res,next) => {
         }
     });
         if(!token) throw new Error ('Invalid link or expired')
-        console.log('eloooooooooooooooo')
         const params = {
             userId: req.params.userId,
             token: req.params.token
@@ -71,7 +70,7 @@ try {
     await User.update( { password : bcrypt.hashSync(password, Number(process.env.SALT), process.env.JWT_RESET) }, { where: { id: userId } } )
     await resetToken.destroy({ where: { token : token.token }})
 
-    res.send("Password reset succesfully")
+    res.status(302).redirect('/')
 } catch(err) {
     const params = { userId, token }
     let errorObject = err.message

@@ -47,6 +47,7 @@ p {
 }
 
 .finished {
+  z-index: 5;
   opacity: 0.4;
   filter: alpha(opacity=40);
 }
@@ -90,8 +91,11 @@ p {
 }
 .inputEditor {
   /* width: 10.1vw!important; */
-  height: 1.914vw!important;
+  text-transform: none;
   /* margin-left:6.5vw!important; */ 
+}
+.editorBox {
+  cursor: pointer;
 }
 .autocomplete {
   /*the container must be positioned relative:*/
@@ -124,9 +128,183 @@ p {
   background-color: DodgerBlue !important;
   color: #ffffff;
 }
+
+
+
+.editorCircle {
+  width: 25px;
+  display:inline-block;
+  border:0px;
+  border-radius:50%;
+  text-align: center;
+  background-color: #56baed;
+  text-transform: capitalize;
+}
+
+
+#snackbarContainer{
+    position: fixed;
+    top:2%;
+    right: 2%;
+    width: 20vw;
+    display: flex;
+    flex-direction: column;
+}
+
+.snackbar{
+    padding: 1.5rem 1rem;
+    margin: 0.5rem;
+    width: 20vw;
+    border-radius: 10px;
+    box-shadow: 2px 2px 5px rgba(0,0,0, 0.7);
+    color:white;
+    animation: fade-in 2s ease;
+}
+
+
+.snackbar span{
+    float: right;
+    cursor: pointer;
+}
+.error{
+    background-color: red;
+}
+
+.success{
+    background-color: rgba(35, 203, 167, 1);
+}
+
+.info{
+    background-color: dodgerblue;
+}
+
+.warning{
+    background-color: gold;
+    color: black;
+}
+
+
+
+.fadeout{
+    animation: fade-out 1s ease 1s forwards;
+}
+@keyframes fade-in{
+    0%{
+        opacity: 0;
+    }
+    100%{
+        opacity: 1;
+    }
+}
+
+@keyframes fade-out{
+    0%{
+        opacity: 1;
+    }
+    100%{
+        opacity: 0;
+    }
+}
+
+.fadeInRight {
+  -webkit-animation-name: fadeInRight;
+  animation-name: fadeInRight;
+  -webkit-animation-duration: 1s;
+  animation-duration: 0.3s;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+}
+
+@-webkit-keyframes fadeInRight {
+  0% {
+    opacity: 0;
+    -webkit-transform: translate3d(30%, 0, 0);
+    transform: translate3d(30%, 0, 0);
+  }
+  100% {
+    opacity: 1;
+    -webkit-transform: none;
+    transform: none;
+  }
+}
+
+@keyframes fadeInRight {
+  0% {
+    opacity: 0;
+    -webkit-transform: translate3d(30%, 0, 0);
+    transform: translate3d(30%, 0, 0);
+  }
+  100% {
+    opacity: 1;
+    -webkit-transform: none;
+    transform: none;
+  }
+}
+
+.fadeInLeft {
+  -webkit-animation-name: fadeInLeft;
+  animation-name: fadeInLeft;
+  -webkit-animation-duration: 1s;
+  animation-duration: 0.3s;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+}
+
+@-webkit-keyframes fadeInLeft {
+  0% {
+    opacity: 1;
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    opacity: 0;
+    -webkit-transform: translate3d(30%, 0, 0);
+    transform: translate3d(30%, 0, 0);
+  }
+}
+
+@keyframes fadeInLeft {
+  0% {
+    opacity: 1;
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    opacity: 0;
+    -webkit-transform: translate3d(30%, 0, 0);
+    transform: translate3d(30%, 0, 0);
+  }
+}
+
+@keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
+  
+.fadeIn {
+  opacity:0;
+  -webkit-animation:fadeIn ease-in 1;
+  -moz-animation:fadeIn ease-in 1;
+  animation:fadeIn ease-in 1;
+
+  -webkit-animation-fill-mode:forwards;
+  -moz-animation-fill-mode:forwards;
+  animation-fill-mode:forwards;
+
+  -webkit-animation-duration:1s;
+  -moz-animation-duration:1s;
+  animation-duration:1s;
+}
+
+
 @media (max-width:720px) {
   .toDoList {
     width: 100vw;
   }
 }
 
+@media (max-width:720px) {
+  .toDoText {
+    font-size:6vw;
+  }
+  .autocomplete-items {
+    top: 9vw;
+  }
+}

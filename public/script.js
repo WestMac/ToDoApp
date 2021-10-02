@@ -20,11 +20,12 @@
 ///////////////////////////////EVENET LISTENING FOR CLICK ON SVG TO POP UP EDIOTRS////////////////////////////////
 document.querySelector(".editorBox").addEventListener('click', event =>{
   event = event.target
-  
-  if(event.nextElementSibling.classList.contains('fadeInRight')){
-    event.nextElementSibling.classList.toggle('fadeInLeft')
+  let el = document.querySelector('#addEditors')
+  if(el.classList.contains('fadeInRight')){
+    el.classList.toggle('fadeInLeft')
   } else {
-    event.nextElementSibling.classList.toggle('fadeInRight')
+    el.classList.toggle('invisible')
+    el.classList.toggle('fadeInRight')
   }
 
 })

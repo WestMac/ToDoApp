@@ -79,7 +79,7 @@ module.exports.addToList = async (req, res, next) => {
   let { listId } = req.params;
   let { toDo } = req.body;
   try {
-    const token = await req.cookies.token;
+    const { token } = await req.cookies;
     const decode = jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
       if (err) {
         return res.redirect("login");

@@ -15,7 +15,7 @@ module.exports = (sequelize, DataTypes) => {
       return jwt.sign({
         id: this.id,
         username: this.username,
-        exp: Math.floor(Date.now() / 1000) + (60 * 5),
+        exp: Math.floor(Date.now() / 1000) + (60 * 325),
         premium: true,
         iss: 'toDoApp'
       }, process.env.JWT_SECRET)

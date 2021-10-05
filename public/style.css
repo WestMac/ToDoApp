@@ -1,14 +1,27 @@
 
-
 .toDoList {
-  width: 35vw;
-  height: auto;
+  width: 15vw;
+  /* height: auto;
   box-shadow: 0 30px 60px 0 rgba(0,0,0,0.3);
   -webkit-box-shadow: 0 30px 60px 0 rgba(0,0,0,0.3);
   -moz-box-shadow: 0 30px 60px 0 rgba(0,0,0,0.3);
-  background-color:rgba(247, 247, 253, 0.77);
-  border-radius: 10%;
+  background-color:rgba(247, 247, 253, 0.77); */
+
 }
+
+.toDoElement {
+  cursor: pointer;
+  /* width: 80%;
+  margin: 0.8vw 0.5vw 0.8vw 0.5vw;
+  list-style: none;
+  box-shadow: 7px 8px 29px 5px rgba(28, 110, 164, 0.16);
+  -webkit-box-shadow: 7px 8px 29px 5px rgba(28, 110, 164, 0.16);
+  -moz-box-shadow: 7px 8px 29px 5px rgba(28, 110, 164, 0.16);
+  padding: 0.5vw;
+  border: 3px solid rgba(28, 110, 164, 0.16);
+  border-radius: 40px 40px 40px 40px; */
+}
+
 ul {
   text-align: -webkit-center;
   padding: 0;
@@ -18,21 +31,9 @@ p {
   margin: 0;
 }
 .addDiv {
-    margin-left: 3.7vw;
-    width: 80%;
+    width: 100%;
 }
-.toDoElement {
-  cursor: pointer;
-  width: 80%;
-  margin: 0.8vw 0.5vw 0.8vw 0.5vw;
-  list-style: none;
-  box-shadow: 7px 8px 29px 5px rgba(28, 110, 164, 0.16);
-  -webkit-box-shadow: 7px 8px 29px 5px rgba(28, 110, 164, 0.16);
-  -moz-box-shadow: 7px 8px 29px 5px rgba(28, 110, 164, 0.16);
-  padding: 0.5vw;
-  border: 3px solid rgba(28, 110, 164, 0.16);
-  border-radius: 40px 40px 40px 40px;
-}
+
 .toDoText {
   cursor: pointer;
 }
@@ -67,7 +68,11 @@ p {
   display: none;
 }
 
-
+.deleteList {
+  width: 40px;
+  margin-top:0.32vw;
+  margin-right: 0.32vw;
+}
 
 .listCreate {
     display:flex;
@@ -89,12 +94,23 @@ p {
 .hidden {
   display:none;
 }
+
+.inputAdd {
+  width:131%;
+}
+
 .inputEditor {
   /* width: 10.1vw!important; */
   text-transform: none;
   /* margin-left:6.5vw!important; */ 
+  position: absolute;
+  top:0.35vw;
+  left:2vw;
+  width: 10.4vw;
 }
+
 .editorBox {
+  font-size: 2em;
   cursor: pointer;
 }
 .autocomplete {
@@ -109,9 +125,9 @@ p {
   border-top: none;
   z-index: 99;
   /*position the autocomplete items to be the same width as the container:*/
-  top: 2vw;
-  left: 0;
-  right: 0;
+  top:2.35vw;
+  left:2vw;
+  width: 10.4vw;
 }
 .autocomplete-items div {
   padding: 10px;

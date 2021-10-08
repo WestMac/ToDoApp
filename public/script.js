@@ -1,5 +1,7 @@
 
 
+//////////////////////////// Path workaround to make it work on all browsers  ////////////////////////////
+
 (function (e, d, w) {
   if (!e.composedPath) {
     e.composedPath = function () {
@@ -19,6 +21,8 @@
   }
 })(Event.prototype, document, window);
 
+//////////////////////////// Setting parent element height to match child ////////////////////////////
+
 (function () 
   {document.querySelectorAll(".toDoList").forEach(function(el) {
     wysokosc = (el.clientHeight + (el.clientHeight * 0.02)) + 'px'
@@ -32,7 +36,7 @@
 
 
 
-///////////////////////////////EVENET LISTENING FOR CLICK ON SVG TO POP UP EDIOTRS////////////////////////////////
+///////////////////////////////Event listener for SVG element to show search input////////////////////////////////
 document.querySelectorAll(".editorBox").forEach(function (el) {
   el.addEventListener("click", event => {
     event = event.target;
@@ -46,6 +50,7 @@ document.querySelectorAll(".editorBox").forEach(function (el) {
     }
   });
 });
+//////////////////////////// Checkbox for graying out and adding status completed for toDo ////////////////////////////
 
 document.querySelectorAll(".checkboxElement").forEach(checkbox => {
   checkbox.addEventListener("change", event => {
@@ -61,7 +66,7 @@ if (document.querySelector(".btnAdd")) {
 
 let lastClicked;
 
-/////////////////////////// EVENT LISTENING FOR CLICK ON TEXT ELEMENT OF ToDo ////////////////////////////
+/////////////////////////// Event listener for editing todo ////////////////////////////
 document.querySelectorAll(".toDoText").forEach(function (el) {
   el.addEventListener("click", function (event) {
     el.parentElement.classList.add("hidden");
@@ -73,6 +78,7 @@ document.querySelectorAll(".toDoText").forEach(function (el) {
   });
 });
 
+//////////////////////////// Sending patch request to edit todo ////////////////////////////
 document.querySelectorAll(".toDoElementEdit").forEach(textarea => {
   textarea.addEventListener(
     "focusout",
@@ -99,6 +105,10 @@ document.querySelectorAll(".toDoElementEdit").forEach(textarea => {
     false
   );
 });
+
+
+
+//////////////////////////// Live search on typing ////////////////////////////
 
 let typingTimer;
 let finishedTypingInterval = 500;
@@ -152,6 +162,7 @@ myInput.forEach(search => {
     }
   });
 });
+//////////////////////////// Detecting keys for changing focus or selecting(enter) ////////////////////////////
 
 myInput.forEach(search => {
   search.addEventListener("keydown", function (event) {
@@ -178,6 +189,7 @@ myInput.forEach(search => {
     }
   });
 });
+//////////////////////////// Adding current focus ////////////////////////////
 
 function addActive(item) {
   if (!item) return false;
@@ -187,11 +199,15 @@ function addActive(item) {
   item[currentFocus].classList.add("autocomplete-active");
 }
 
+//////////////////////////// Removing currnet focus ////////////////////////////
+
 function removeActive(x) {
   for (let i = 0; i < x.length; i++) {
     x[i].classList.remove("autocomplete-active");
   }
 }
+
+//////////////////////////// Closing found edditors ////////////////////////////
 
 function closeAllLists(currentList) {
   var list = document.getElementsByClassName("autocomplete-items");
@@ -201,6 +217,8 @@ function closeAllLists(currentList) {
     }
   }
 }
+
+//////////////////////// Adding editors, to DB and to toDoList div ////////////////////////////
 
 function addEditor(listId, username) {
   fetch(`http://192.168.1.125/list/${listId}/${username}`, {
@@ -305,7 +323,7 @@ let centerDiv = function(event) {
 
 
 
-
+//////////////////////// Moving todolist handler  ///////////////////////////
   document.querySelectorAll(".toDoList").forEach(function(el) {
   
     el.addEventListener('click',centerDiv,true)
@@ -314,7 +332,6 @@ let centerDiv = function(event) {
         return;
     }
      console.log('event focusout')
-      // if(document.activeElement.getAttribute('name') === el.getAttribute('name')) { console.log('jest') }
       let rect = document.getElementsByName(el.getAttribute('name'))[0].getBoundingClientRect();
       let offset = { 
           top: rect.top + window.scrollY, 

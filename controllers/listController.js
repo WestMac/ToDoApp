@@ -1,11 +1,10 @@
-const jwt = require("jsonwebtoken");
+
 const { listUserPermission, toDoList, toDoItem, User } = require("../models");
 const { Op } = require("sequelize");
 
 module.exports.createList = async (req, res, next) => {
   let { name } = req.body;
-  const token = await req.cookies.token;
-  const decode = jwt.verify(token, process.env.JWT_SECRET);
+  let { decode } = res.locals
   let toDo = await toDoList.create({ name: name, UserId: decode.id });
   let permission = await listUserPermission.create({
     UserId: decode.id,
@@ -20,8 +19,7 @@ module.exports.createList = async (req, res, next) => {
 
 module.exports.deleteList = async (req, res, next) => {
   let { listId } = req.params;
-  const token = await req.cookies.token;
-  const decode = jwt.verify(token, process.env.JWT_SECRET);
+  let { decode } = res.locals
   let ownership = await listUserPermission.findOne({
     where: { UserId: decode.id, toDoListId: listId, isAuthor: true },
   });
@@ -32,16 +30,8 @@ module.exports.deleteList = async (req, res, next) => {
 };
 
 module.exports.findUserLists = async (req, res, next) => {
-  const token = await req.cookies.token;
-  const decode = jwt.verify(token, process.env.JWT_SECRET, (error, decoded) => {
-    if (error) {
-      let errorObject = error.message
-      return res.render("login", {errorObject});
-    }
-    return decoded;
-  });
+  let { decode } = res.locals
   let data = await listUserPermission.findAll({ where: { UserId: decode.id } });
-
   let result = [];
   let username = [];
   let editors = [];
@@ -79,14 +69,8 @@ module.exports.findUserLists = async (req, res, next) => {
 module.exports.addToList = async (req, res, next) => {
   let { listId } = req.params;
   let { toDo } = req.body;
+  let { decode } = res.locals
   try {
-    const { token } = await req.cookies;
-    const decode = jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
-      if (err) {
-        return res.redirect("login");
-      }
-      return decoded;
-    });
     let ownership = await listUserPermission.findOne({
       where: { toDoListId: listId, UserId: decode.id },
     });
@@ -108,8 +92,7 @@ module.exports.addToList = async (req, res, next) => {
 
 module.exports.removeFromList = async (req, res, next) => {
   let { toDoId } = req.params;
-  const token = await req.cookies.token;
-  const decode = jwt.verify(token, process.env.JWT_SECRET);
+  let { decode } = res.locals
   let list = await toDoItem.findOne({ where: { id: toDoId } });
   let ownership = await listUserPermission.findOne({
     where: { UserId: decode.id, toDoListId: list.toDoListId },
@@ -123,8 +106,7 @@ module.exports.removeFromList = async (req, res, next) => {
 module.exports.updateToDo = async (req, res, next) => {
   let { toDoId } = req.params;
   let { text } = req.body;
-  const token = await req.cookies.token;
-  const decode = jwt.verify(token, process.env.JWT_SECRET);
+  let { decode } = res.locals
   let list = await toDoItem.findOne({ where: { id: toDoId } });
   let ownership = await listUserPermission.findOne({
     where: { UserId: decode.id, toDoListId: list.toDoListId },
@@ -136,16 +118,7 @@ module.exports.updateToDo = async (req, res, next) => {
 };
 
 module.exports.findUser = async (req, res, next) => {
- 
-  const token = await req.cookies.token;
-  const decode = jwt.verify(token, process.env.JWT_SECRET, (error, decoded) => {
-    if (error) {
-      let errorObject = error.message
-      return res.render("login", {errorObject} );
-    }
-    return decoded;
-  });
-  let { listId, username } = req.params;
+  let { username } = req.params;
 
   let users = await User.findAll({ where: { username: { [Op.iLike]: `${username}%` } } });
   let data = [];
@@ -159,13 +132,7 @@ module.exports.findUser = async (req, res, next) => {
 
 module.exports.addEditor = async (req, res, next) => {
   let newEditor;
-  const token = await req.cookies.token;
-  const decode = jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
-    if (err) {
-      return res.redirect("login");
-    }
-    return decoded;
-  });
+  let { decode } = res.locals
   try {
     let { listId, username } = req.params;
     let user = await User.findOne({ where: { username: username } });

@@ -4,6 +4,7 @@ const router = express.Router();
 const { checkJwtToken } = require("../controllers/userController");
 const { createList, findUserLists, addToList, deleteList, removeFromList, updateToDo, findUser, addEditor } = require("../controllers/listController");
 
+
 router.get("/", checkJwtToken, findUserLists, async (req, res) => {
   let data = req.data;
   let dupa = req.dupa;

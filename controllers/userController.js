@@ -30,8 +30,6 @@ module.exports.createJwtToken = async (req, res, next) => {
   }
 };
 
-module.exports.createRefreshToken = async (req, res, next) => {};
-
 module.exports.checkJwtToken = async (req, res, next) => {
   const token = await req.cookies.token;
   if (!token) return res.status(403).render("login");
@@ -39,6 +37,7 @@ module.exports.checkJwtToken = async (req, res, next) => {
     if (token === "null" || !token) return res.status(400).render("login");
     const decode = jwt.verify(token, process.env.JWT_SECRET);
     if (!decode) return res.status(401).render("login");
+    res.locals.decode = decode;
     return next();
   } catch (error) {
     let errorObject = "Session expired"

@@ -1,0 +1,48 @@
+<head>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css"
+    />
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style></style>
+  </head>
+  <body>
+    <div class="navbar justify-content-center">
+      <ul class="nav justify-content-center">
+        <li class="nav-item">
+          <a name="create" class="nav-link active createList">Create List</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/logout" tabindex="-1">Logout</a>
+        </li>
+      </ul>
+    </div>
+    <section id="snackbarContainer"></section>
+
+    <form action="/list/addList" method="POST">
+      <div class="input-group mb-3 listCreate listDisplay justify-content-center">
+        <label for="list" class="mb-3 fs-3">List name</label>
+        <div class="container d-flex">
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Create new To Do List"
+            aria-label="Create new To Do List"
+            aria-describedby="button-addon2"
+            name="name"
+            id="list"
+          />
+          <button class="btn btn-outline-secondary" type="submit" id="button-addon2">Button</button>
+        </div>
+      </div>
+    </form>

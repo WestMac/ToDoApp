@@ -1,3 +1,5 @@
+
+
 (function (e, d, w) {
   if (!e.composedPath) {
     e.composedPath = function () {
@@ -16,6 +18,19 @@
     };
   }
 })(Event.prototype, document, window);
+
+(function () 
+  {document.querySelectorAll(".toDoList").forEach(function(el) {
+    wysokosc = (el.clientHeight + (el.clientHeight * 0.02)) + 'px'
+    el.parentElement.style.height = wysokosc
+  })
+})()
+
+
+
+
+
+
 
 ///////////////////////////////EVENET LISTENING FOR CLICK ON SVG TO POP UP EDIOTRS////////////////////////////////
 document.querySelectorAll(".editorBox").forEach(function (el) {
@@ -259,3 +274,69 @@ function snackbar(type, msg, time) {
     snackbarContainer.removeChild(box);
   }, time);
 }
+
+
+/////////////////////// EVENT CLICK ON DIV TO CENTER ////////////////////////////////
+let centerDiv = function(event) {
+  let rect = document.getElementsByName(this.getAttribute('name'))[0].getBoundingClientRect();
+  let offset = { 
+      top: rect.top + window.scrollY, 
+      left: rect.left + window.scrollX, 
+    };
+  let tc = (window.innerHeight / 2 - this.clientHeight) + 'px'
+  let lc = (window.innerWidth / 2 - this.clientWidth / 2 - offset.left) + 'px'
+  this.animate(
+     {
+      top:['0px', tc],
+      left:['0px', lc]
+    },
+    { 
+      duration: 1000,
+      easing: 'cubic-bezier(.38,.26,.07,1.06)',
+      iterations: 1,
+      fill: 'forwards'
+    }
+  )
+  
+  console.log(this)
+  this.focus();
+  this.removeEventListener('click',centerDiv, true)
+  }
+
+
+
+
+  document.querySelectorAll(".toDoList").forEach(function(el) {
+  
+    el.addEventListener('click',centerDiv,true)
+    el.addEventListener("focusout", event => {
+    if (el.contains(event.relatedTarget)) {
+        return;
+    }
+     console.log('event focusout')
+      // if(document.activeElement.getAttribute('name') === el.getAttribute('name')) { console.log('jest') }
+      let rect = document.getElementsByName(el.getAttribute('name'))[0].getBoundingClientRect();
+      let offset = { 
+          top: rect.top + window.scrollY, 
+          left: rect.left + window.scrollX, 
+        };
+      let tc = (window.innerHeight / 2 - el.clientHeight) + 'px'
+      let lc = (window.innerWidth / 2 - el.clientWidth / 2 - offset.left) + 'px'
+    
+      el.animate(
+         {
+          top:[tc,'0px'],
+          left:[lc,'0px']
+        },
+        { 
+          duration: 1000,
+          easing: 'cubic-bezier(.38,.26,.07,1.06)',
+          iterations: 1,
+          fill: 'forwards'
+        }
+      )
+      event.stopImmediatePropagation();
+      event.stopPropagation();
+      el.addEventListener('click',centerDiv, true)  
+      })
+  })

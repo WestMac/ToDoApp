@@ -10,14 +10,15 @@ const passwordRoutes = require("./routes/passwordReset")
 const { sequelize } = require("./models");
 const methodOverride = require("method-override");
 const cors = require("cors")
-
+const ejsMate = require('ejs-mate')
 
 app.use(methodOverride("_method"));
 app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.set("view engine", "ejs");
-app.set("views", path.join(__dirname, "views"));
+app.engine('ejs', ejsMate)
+app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, 'views'))
 app.use(express.static(path.join(__dirname, "public")));
 app.use(function (req, res, next) {
   res.setHeader("Access-Control-Allow-Origin", "*");

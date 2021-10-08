@@ -6,7 +6,8 @@ const { createList, findUserLists, addToList, deleteList, removeFromList, update
 
 router.get("/", checkJwtToken, findUserLists, async (req, res) => {
   let data = req.data;
-  return res.render("list", { data });
+  let dupa = req.dupa;
+  return res.render("list", { data, dupa });
 });
 
 router.post("/addList", checkJwtToken, createList, async (req, res) => {

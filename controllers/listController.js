@@ -72,6 +72,7 @@ module.exports.findUserLists = async (req, res, next) => {
     }
   }
   req.data = result;
+  req.dupa;
   next();
 };
 

@@ -316,16 +316,15 @@ let centerDiv = function(event) {
     }
   )
   
+
   console.log(this)
   this.focus();
   this.removeEventListener('click',centerDiv, true)
   }
 
-
-
 //////////////////////// Moving todolist handler  ///////////////////////////
   document.querySelectorAll(".toDoList").forEach(function(el) {
-  
+
     el.addEventListener('click',centerDiv,true)
     el.addEventListener("focusout", event => {
     if (el.contains(event.relatedTarget)) {

@@ -24,16 +24,12 @@
           <a class="nav-link" href="/register">Register</a>
       </ul>
     </div>
-
-
-
-
     <div class="wrapper fadeInDown">
       <div id="formContent">
         <h1 class="fadeInDown">Register</h1>
-        <% if(locals.errorObject) { %>
+        <% if(errorObject) { %>
           <p class="alert alert-danger" role="alert">
-          <% for(let [error,message] of Object.entries(locals.errorObject)) { %>
+          <% for(let [error,message] of Object.entries(errorObject)) { %>
           <span style ="text-transform:capitalize"><%= error %>: </span><span> <%= message %> </span> <br>
         
           <% } %>  

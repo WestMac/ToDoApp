@@ -1,4 +1,10 @@
 # ToDoApp
+
+Work In progress -> If you would try to run it probably endpoints in public/script.js need to be changed to localhost:YOURPORT because of me trying out nginx
+
+
+
+
 Web todo APP, CRUD, Auth, CI/CD, Tests
 
 Runtime Environment: &nbsp;**Node.js**\

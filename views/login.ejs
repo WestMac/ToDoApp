@@ -29,8 +29,8 @@
         <div class="wrapper fadeInDown">
           <div id="formContent">
             <h1 class="fadeInDown">Login</h1>
-            <% if(locals.errorObject) { %>
-              <p class="alert alert-danger" role="alert""><%= locals.errorObject %></p>
+            <% if(errorObject) { %>
+              <p class="alert alert-danger" role="alert""><%= errorObject %></p>
               <% } %>
             <form action='/login' method='POST' class="form" id="loginForm">
               <input type="text" id="username" class="fadeIn second" name="username" placeholder="username">

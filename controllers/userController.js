@@ -26,6 +26,7 @@ module.exports.createJwtToken = async (req, res, next) => {
     next();
   } catch (error) {
     errorObject = error.message
+    console.log(errorObject)
     return res.status(400).render('login', { errorObject });
   }
 };

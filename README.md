@@ -22,7 +22,7 @@ Clone the repo and install dependecies
 
 ```
 git clone https://github.com/WestMac/ToDoApp.git
-npm install
+cd ToDoApp && npm install
 ```
 
 Go to toDoApp -> config -> config.json and provide your database info. For default it is 
@@ -34,7 +34,7 @@ On first run you need to create database and then you can run project.
 It will be hosted on port 3000 by default
 
 ```
-cd yourLocation/toDoApp
+cd yourLocation/ToDoApp
 npx sequelize-cli db:create
 npx sequelize-cli db:migrate
 node server.js
